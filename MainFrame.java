@@ -4,11 +4,17 @@ import javax.swing.*;
 
 public class MainFrame extends JFrame {
     StartPanel startPanel;
+    GameManager gameManager;
 
     public MainFrame () {
         //window panel
         startPanel = new StartPanel();
         this.getContentPane().add(startPanel);
+
+        //game manager and thread
+        gameManager = new GameManager(this);
+        Thread gamThread = new Thread(gameManager);
+        gamThread.start();
 
         //--
         this.pack();
@@ -21,21 +27,21 @@ public class MainFrame extends JFrame {
 }
 
 class StartPanel extends JPanel {
-    JLabel label;
+    JLabel nameInsert;
 
     public StartPanel () {
 
         //Components
-        label = new JLabel("Label");
-        label.setForeground(Color.white);
-
+        nameInsert = new JLabel("Label");
+        nameInsert.setForeground(Color.white);
 
         //Add components
-        this.add(label);
+        this.add(nameInsert);
 
         //--
         this.setPreferredSize(new Dimension(600,600));
         this.setBackground(Color.BLACK);
+
     }
 
 }
