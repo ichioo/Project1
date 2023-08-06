@@ -1,12 +1,18 @@
+package frames;
 
 import java.awt.*;
 import java.io.File;
 import javax.swing.*;
 
+import gameManager.GameManager;
+import gamePanels.*;
+
 public class MainFrame extends JFrame {
-    StartPanel startPanel;
-    GameManager gameManager;
-    Font gameFont;
+    public StartPanel startPanel;
+    public TestPanel testPanel;
+
+    public GameManager gameManager;
+    public Font gameFont;
 
 
     public MainFrame () {
@@ -14,7 +20,7 @@ public class MainFrame extends JFrame {
 
         //window panel
         startPanel = new StartPanel(gameFont);
-        this.getContentPane().add(startPanel);
+        getContentPane().add(startPanel);
 
         //game manager and thread
         gameManager = new GameManager(this);
@@ -39,30 +45,16 @@ public class MainFrame extends JFrame {
         } catch (Exception e) {
             System.out.println("Error, MainFrame, fontCreation");
         }
-    }   
-}
-
-class StartPanel extends JPanel {
-    JLabel nameInsert;
-
-    public StartPanel (Font gameFont) {
-        //--
-        this.setLayout(null);
-        this.setPreferredSize(new Dimension(600,600));
-        this.setBackground(Color.BLACK);
-
-        
-        //Components
-        nameInsert = new JLabel("Label");
-        nameInsert.setForeground(Color.white);
-        nameInsert.setFont(gameFont);
-        nameInsert.setBounds(80, 200, 425, 200);
-        nameInsert.setBorder(BorderFactory.createLineBorder(Color.darkGray,3));
-        nameInsert.setHorizontalAlignment(JLabel.CENTER);
-
-        //Add components
-        this.add(nameInsert);
-        
     }
 
+    // panel change methods
+    public void changePanel () {
+        remove(startPanel);
+
+        testPanel = new TestPanel(gameFont);
+        getContentPane().add(testPanel);
+        validate();
+        repaint();
+        
+    }
 }
