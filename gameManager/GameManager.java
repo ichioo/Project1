@@ -28,11 +28,11 @@ public class GameManager implements Runnable{
 
     public void setPlayerName (String playerName) {
         this.playerName = playerName;
-        mainFrame.changePanel();
-        test();
+        mainFrame.changeToFight();
+        fightPhase();
     }   
 
-    //Game fase methods
+    //Game phase methods
     public void nameInsert() {
         mainFrame.addKeyListener(new NameInKeyListener(mainFrame));
 
@@ -51,8 +51,9 @@ public class GameManager implements Runnable{
         }
     }
 
-    public void test () {
-        mainFrame.testPanel.test.setText("ciao! " + playerName);
+    public void fightPhase () {
+
+        
     }
 
 }

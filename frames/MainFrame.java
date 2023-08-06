@@ -9,7 +9,7 @@ import gamePanels.*;
 
 public class MainFrame extends JFrame {
     public StartPanel startPanel;
-    public TestPanel testPanel;
+    public FightPanel testPanel;
 
     public GameManager gameManager;
     public Font gameFont;
@@ -29,7 +29,7 @@ public class MainFrame extends JFrame {
 
         //--
         this.pack();
-        this.setResizable(true);
+        this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
 
@@ -48,10 +48,10 @@ public class MainFrame extends JFrame {
     }
 
     // panel change methods
-    public void changePanel () {
+    public void changeToFight () {
         remove(startPanel);
 
-        testPanel = new TestPanel(gameFont);
+        testPanel = new FightPanel(gameFont);
         getContentPane().add(testPanel);
         validate();
         repaint();
