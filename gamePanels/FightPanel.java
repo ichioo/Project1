@@ -3,12 +3,26 @@ package gamePanels;
 import java.awt.*;
 import javax.swing.*;
 
+import characters.*;
+import skills.Skill;
+import skills.TestSkill;
+
 public class FightPanel extends JPanel {
-    public JLabel playerNameLabel;
-    public JProgressBar playerHpLabel;
+
+    //characters
+    Player player;
+    Enemy enemy;
+
+    //player
+    JLabel playerNameLabel;
+    JProgressBar playerHpBar;
+
+    //enemy
+    JLabel enemyNameLabel;
+    JProgressBar enemyHpBar;
 
     public FightPanel (Font gameFont) {
-        //--
+
         setLayout(null);
         setPreferredSize(new Dimension(600,600));
         setBackground(Color.BLACK);
@@ -37,33 +51,38 @@ public class FightPanel extends JPanel {
         skill4Label.setBounds(skill3Label.getX()+skill3Label.getWidth(), skillLabelsY, skillLabelWidth, skillLabelHeight);
 
         //player
-        playerHpLabel = new JProgressBar();
-        playerHpLabel.setBorder(BorderFactory.createLineBorder(Color.darkGray, 3));
-        playerHpLabel.setBounds(140, 550, 250, 20);
-        playerHpLabel.setMaximum(200);
-        playerHpLabel.setValue(50);
-        playerHpLabel.setForeground(Color.red);
-        playerHpLabel.setBackground(Color.black);
+        playerHpBar = new JProgressBar();
+        playerHpBar.setBorder(BorderFactory.createLineBorder(Color.darkGray, 3));
+        playerHpBar.setBounds(140, 550, 250, 20);
+        playerHpBar.setForeground(Color.red);
+        playerHpBar.setBackground(Color.black);
 
         playerNameLabel = new JLabel();
         playerNameLabel.setForeground(Color.WHITE);
-        playerNameLabel.setBounds(playerHpLabel.getX() + playerHpLabel.getWidth() + 10, playerHpLabel.getY(), 150 , playerHpLabel.getHeight());
+        playerNameLabel.setBounds(playerHpBar.getX() + playerHpBar.getWidth() + 10, playerHpBar.getY(), 150 , playerHpBar.getHeight());
         playerNameLabel.setFont(gameFont.deriveFont(20f));
 
-        //monster 
-        JLabel monsterLabel = new JLabel("Monster");
-        monsterLabel.setBorder(BorderFactory.createLineBorder(Color.darkGray, 3));
-        monsterLabel.setBounds(155, 55, 290, 290);
+        //enemy 
+        JLabel enemyImageLabel = new JLabel("enemy");
+        enemyImageLabel.setBorder(BorderFactory.createLineBorder(Color.darkGray, 3));
+        enemyImageLabel.setBounds(155, 55, 290, 290);
 
-        JLabel monsterHpLabel = new JLabel("mons hp");
-        monsterHpLabel.setBorder(BorderFactory.createLineBorder(Color.darkGray, 3));
-        monsterHpLabel.setBounds(155, 25, 290, 15);
+        enemyHpBar = new JProgressBar();
+        enemyHpBar.setBorder(BorderFactory.createLineBorder(Color.darkGray, 3));
+        enemyHpBar.setBounds(140, 25, 250, 15);
+        enemyHpBar.setForeground(Color.red);
+        enemyHpBar.setBackground(Color.black);
 
-        JLabel monsterAction = new JLabel("mons action");
-        monsterAction.setBorder(BorderFactory.createLineBorder(Color.darkGray, 3));
-        monsterAction.setBounds(100, 350, 400, 80);
-        monsterAction.setFont(gameFont.deriveFont(40f));
-        monsterAction.setHorizontalAlignment(JLabel.CENTER);
+        enemyNameLabel = new JLabel("enemy name");
+        enemyNameLabel.setForeground(Color.WHITE);
+        enemyNameLabel.setBounds(enemyHpBar.getX() + enemyHpBar.getWidth() + 10, enemyHpBar.getY(),150 , enemyHpBar.getHeight());
+        enemyNameLabel.setFont(gameFont.deriveFont(20f));
+
+        JLabel enemyAction = new JLabel("mons action");
+        enemyAction.setBorder(BorderFactory.createLineBorder(Color.darkGray, 3));
+        enemyAction.setBounds(100, 350, 400, 80);
+        enemyAction.setFont(gameFont.deriveFont(40f));
+        enemyAction.setHorizontalAlignment(JLabel.CENTER);
 
 
         //-- Add components
@@ -74,13 +93,33 @@ public class FightPanel extends JPanel {
         add(skill4Label);
 
         //player stuff
-        add(playerHpLabel);
+        add(playerHpBar);
         add(playerNameLabel);
 
-        //monster stuff
-        add(monsterLabel);
-        add(monsterHpLabel);
-        add(monsterAction);
+        //enemy stuff
+        add(enemyImageLabel);
+        add(enemyHpBar);
+        add(enemyNameLabel);
+        add(enemyAction);
+    }
+
+    public void setCharacters (Player player, Enemy enemy) {
+        
+        this.player = player;
+        this.enemy = enemy;
+
+        //player hp bar
+        playerHpBar.setMaximum(player.maxHealth);
+        playerHpBar.setValue(player.health);
+        //player
+        playerNameLabel.setText(player.name);
+
+        //enemy hp bar
+        enemyHpBar.setMaximum(enemy.getMaxHealth());
+        enemyHpBar.setValue(enemy.getHealth());
+        //enemy
+        enemyNameLabel.setText(enemy.getName());
+        
     }
 
 }

@@ -2,6 +2,9 @@ package keyListeners;
 
 import java.awt.event.*;
 import javax.swing.*;
+
+import characters.Player;
+import characters.TestEnemy;
 import frames.*;
 
 public class NameInKeyListener implements KeyListener {
@@ -45,8 +48,8 @@ public class NameInKeyListener implements KeyListener {
         //when pressed enter key
         if(isEnterKey) {
             playerName = nameInsertLabel.getText().substring(17);
-            mainFrame.gameManager.createPlayer(playerName);
-            System.out.println("NameInKeyListener");
+            mainFrame.gameManager.temporary(new Player(playerName), new TestEnemy());
+            System.out.println("NameInKeyListener: enter");
         }
     }
 
