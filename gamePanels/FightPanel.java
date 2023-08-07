@@ -1,12 +1,11 @@
 package gamePanels;
 
 import java.awt.*;
-import java.util.Vector;
-
 import javax.swing.*;
 
 public class FightPanel extends JPanel {
-
+    public JLabel playerNameLabel;
+    public JProgressBar playerHpLabel;
 
     public FightPanel (Font gameFont) {
         //--
@@ -38,16 +37,20 @@ public class FightPanel extends JPanel {
         skill4Label.setBounds(skill3Label.getX()+skill3Label.getWidth(), skillLabelsY, skillLabelWidth, skillLabelHeight);
 
         //player
-        JLabel playerHpLabel = new JLabel("player hp");
+        playerHpLabel = new JProgressBar();
         playerHpLabel.setBorder(BorderFactory.createLineBorder(Color.darkGray, 3));
         playerHpLabel.setBounds(140, 550, 250, 20);
+        playerHpLabel.setMaximum(200);
+        playerHpLabel.setValue(50);
+        playerHpLabel.setForeground(Color.red);
+        playerHpLabel.setBackground(Color.black);
 
-        JLabel playerNameLabel = new JLabel("name");
-        playerNameLabel.setBorder(BorderFactory.createLineBorder(Color.darkGray, 3));
-        playerNameLabel.setBounds(playerHpLabel.getX() + playerHpLabel.getWidth() + 10, playerHpLabel.getY(), 100 , playerHpLabel.getHeight());
+        playerNameLabel = new JLabel();
+        playerNameLabel.setForeground(Color.WHITE);
+        playerNameLabel.setBounds(playerHpLabel.getX() + playerHpLabel.getWidth() + 10, playerHpLabel.getY(), 150 , playerHpLabel.getHeight());
         playerNameLabel.setFont(gameFont.deriveFont(20f));
 
-        //monster labels
+        //monster 
         JLabel monsterLabel = new JLabel("Monster");
         monsterLabel.setBorder(BorderFactory.createLineBorder(Color.darkGray, 3));
         monsterLabel.setBounds(155, 55, 290, 290);
@@ -62,6 +65,7 @@ public class FightPanel extends JPanel {
         monsterAction.setFont(gameFont.deriveFont(40f));
         monsterAction.setHorizontalAlignment(JLabel.CENTER);
 
+
         //-- Add components
         //skill labels
         add(skill1Label);
@@ -69,11 +73,11 @@ public class FightPanel extends JPanel {
         add(skill3Label);
         add(skill4Label);
 
-        //player labels
+        //player stuff
         add(playerHpLabel);
         add(playerNameLabel);
 
-        //monster
+        //monster stuff
         add(monsterLabel);
         add(monsterHpLabel);
         add(monsterAction);

@@ -1,19 +1,26 @@
 package frames;
 
 import java.awt.*;
+import java.awt.event.KeyListener;
 import java.io.File;
 import javax.swing.*;
 
+import characters.*;
 import gameManager.GameManager;
 import gamePanels.*;
+import keyListeners.*;
 
 public class MainFrame extends JFrame {
+    public NameInKeyListener nameInKeyListener;
+    public FightKeyListener fightKeyListener;
+
     public StartPanel startPanel;
-    public FightPanel testPanel;
+    public FightPanel fightPanel;
 
     public GameManager gameManager;
     public Font gameFont;
 
+    public Player player;
 
     public MainFrame () {
         createFont();
@@ -26,6 +33,10 @@ public class MainFrame extends JFrame {
         gameManager = new GameManager(this);
         Thread gamThread = new Thread(gameManager);
         gamThread.start();
+
+        //listener
+        nameInKeyListener = new NameInKeyListener(this);
+        addKeyListener(nameInKeyListener);
 
         //--
         this.pack();
@@ -49,10 +60,16 @@ public class MainFrame extends JFrame {
 
     // panel change methods
     public void changeToFight () {
-        remove(startPanel);
+        //changes the keylistener
+        removeKeyListener(nameInKeyListener);
+        nameInKeyListener = null;
+        fightKeyListener = new FightKeyListener();
+        addKeyListener(fightKeyListener);
 
-        testPanel = new FightPanel(gameFont);
-        getContentPane().add(testPanel);
+        //changes the panel
+        remove(startPanel);
+        fightPanel = new FightPanel(gameFont);
+        getContentPane().add(fightPanel);
         validate();
         repaint();
         

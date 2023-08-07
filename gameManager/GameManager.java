@@ -1,10 +1,11 @@
 package gameManager;
 
-
 import java.awt.Font;
 
+import characters.*;
 import frames.MainFrame;
-import keyListeners.NameInKeyListener;
+import gamePanels.FightPanel;
+import skills.TestSkill;
 
 //Used to manage game phases: start, fight, ...
 
@@ -12,7 +13,8 @@ public class GameManager implements Runnable{
 
     MainFrame mainFrame;
     Font gameFont;
-    String playerName;
+    Player player;
+
 
     public GameManager (MainFrame mainFrame) {
         this.mainFrame = mainFrame;
@@ -26,16 +28,18 @@ public class GameManager implements Runnable{
 
     //Other methods
 
-    public void setPlayerName (String playerName) {
-        this.playerName = playerName;
+    public void createPlayer (String playerName) {
+        player = new Player(playerName);
         mainFrame.changeToFight();
+        mainFrame.fightKeyListener.player = player;
+
+        player.addSkill(new TestSkill(), 0);
+
         fightPhase();
     }   
 
     //Game phase methods
     public void nameInsert() {
-        mainFrame.addKeyListener(new NameInKeyListener(mainFrame));
-
         String text = "Enter your name: ";
         String effectString = "";
 
@@ -52,8 +56,14 @@ public class GameManager implements Runnable{
     }
 
     public void fightPhase () {
+        FightPanel fightPanel = mainFrame.fightPanel;
 
-        
+        //player health bar
+        fightPanel.playerNameLabel.setText(player.name);
+        fightPanel.playerHpLabel.setMaximum(player.maxHealth);
+        fightPanel.playerHpLabel.setValue(player.health-10);
+
+
     }
 
 }
