@@ -4,8 +4,6 @@ import java.awt.*;
 import javax.swing.*;
 
 import characters.*;
-import skills.Skill;
-import skills.TestSkill;
 
 public class FightPanel extends JPanel {
 
