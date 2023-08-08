@@ -50,11 +50,11 @@ public class StartKeyListener implements KeyListener {
 
         if(isEnterKey) {
             if(selectectBox[0] == 1) {
-                System.out.println("new game");
+                System.out.println("StartKeyListener: new game");
                 mainFrame.changeToNameInsert();
                 mainFrame.inNameThread.start();
             } else {
-                System.out.println("load game");
+                System.out.println("StartKeyListener: load game");
             }
         }
     }

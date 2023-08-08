@@ -4,8 +4,6 @@ import java.awt.Font;
 import characters.*;
 import frames.MainFrame;
 
-//Used to manage game phases: start, fight, ...
-
 public class InsertNameThread extends Thread{
 
     MainFrame mainFrame;

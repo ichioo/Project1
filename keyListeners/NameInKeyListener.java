@@ -45,6 +45,7 @@ public class NameInKeyListener implements KeyListener {
         //when pressed enter key
         if(isEnterKey) {
             playerName = nameInsertLabel.getText().substring(17);
+            mainFrame.changeToHome();
             System.out.println("NameInKeyListener: enter");
         }
 

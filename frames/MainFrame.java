@@ -3,21 +3,22 @@ package frames;
 import java.awt.*;
 import java.io.File;
 import javax.swing.*;
-
 import characters.*;
 import gamePanels.*;
-import gameThreads.InsertNameThread;
+import gameThreads.*;
 import keyListeners.*;
 
 public class MainFrame extends JFrame {
     //listeners
     public StartKeyListener startKeyListener;
     public NameInKeyListener nameInKeyListener;
+    public HomeKeyListener homeKeyListener;
     public FightKeyListener fightKeyListener;
 
     //panels
     public StartPanel startPanel;
     public NameInPanel nameInPanel;
+    public HomePanel homePanel;
     public FightPanel fightPanel;
 
     //-
@@ -27,15 +28,18 @@ public class MainFrame extends JFrame {
 
     public MainFrame () {
         createFont();
+        createAllPanels();
 
         //window panel
         startPanel = new StartPanel(gameFont);
         getContentPane().add(startPanel);
+        // homePanel = new HomePanel(gameFont);
+        // getContentPane().add(homePanel);
 
-        //game manager and thread
+        //first thread
         inNameThread = new InsertNameThread(this);
 
-        //listener
+        //first listener
         startKeyListener = new StartKeyListener(this);
         addKeyListener(startKeyListener);
 
@@ -47,8 +51,60 @@ public class MainFrame extends JFrame {
 
     }
 
-    public void createFont () {
+    // panel change methods
+    public void changeToNameInsert () {
+        //changes the panel
+        removeCurrentPanel();
+        getContentPane().add(nameInPanel);
+        validate();
+        repaint();
 
+        //changes the keylistener
+        removeCurrentKeyListener();
+        nameInKeyListener = new NameInKeyListener(this);
+        addKeyListener(nameInKeyListener);
+
+    }
+
+    public void changeToHome () {
+        //changes the panel
+        removeCurrentPanel();
+        getContentPane().add(homePanel);
+        validate();
+        repaint();
+
+        //changes the keylistener
+        removeCurrentKeyListener();
+        homeKeyListener = new HomeKeyListener(this);
+        addKeyListener(homeKeyListener);
+
+    }
+
+    public void changeToFight () {
+        //changes the panel
+        removeCurrentPanel();
+        fightPanel = new FightPanel(gameFont);
+        getContentPane().add(fightPanel);
+        validate();
+        repaint();
+
+        //changes the keylistener
+        removeCurrentKeyListener();
+        fightKeyListener = new FightKeyListener();
+        addKeyListener(fightKeyListener);
+        
+    }
+
+    //--
+    public void createAllPanels () {
+        startPanel = new StartPanel(gameFont);
+        nameInPanel = new NameInPanel(gameFont);
+        fightPanel = new FightPanel(gameFont);
+        homePanel = new HomePanel(gameFont);
+
+    }
+
+    public void createFont () {
         try { 
             gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("UpheavalPro.ttf")).deriveFont(25f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -58,37 +114,38 @@ public class MainFrame extends JFrame {
             System.out.println("Error, MainFrame, fontCreation");
         }
     }
-
-    // panel change methods
-    public void changeToNameInsert () {
-        //changes the panel
-        remove(startPanel);
-        nameInPanel = new NameInPanel(gameFont);
-        getContentPane().add(nameInPanel);
-        validate();
-        repaint();
-
-        //changes the keylistener
-        removeKeyListener(startKeyListener);
-        startKeyListener = null;
-        nameInKeyListener = new NameInKeyListener(this);
-        addKeyListener(nameInKeyListener);
-
+    
+    public void removeCurrentPanel () {
+        if(startPanel != null) {
+            remove(startPanel);
+        }
+        if(nameInPanel != null) {
+            remove(nameInPanel);
+        }
+        if(fightPanel != null) {
+            remove(fightPanel);
+        }
+        if(homePanel != null) {
+            remove(homePanel);
+        }
     }
 
-    public void changeToFight () {
-        //changes the panel
-        remove(nameInPanel);
-        fightPanel = new FightPanel(gameFont);
-        getContentPane().add(fightPanel);
-        validate();
-        repaint();
-
-        //changes the keylistener
-        removeKeyListener(nameInKeyListener);
-        nameInKeyListener = null;
-        fightKeyListener = new FightKeyListener();
-        addKeyListener(fightKeyListener);
-        
+    public void removeCurrentKeyListener () {
+        if(startKeyListener != null) {
+            removeKeyListener(startKeyListener);
+            startKeyListener = null;
+        }
+        if(nameInKeyListener != null) {
+            removeKeyListener(nameInKeyListener);
+            nameInKeyListener = null;
+        }
+        if(fightKeyListener != null) {
+            removeKeyListener(fightKeyListener);
+            fightKeyListener = null;
+        }
+        if(homeKeyListener != null) {
+            removeKeyListener(homeKeyListener);
+            homeKeyListener = null;
+        }
     }
 }
