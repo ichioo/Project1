@@ -4,16 +4,23 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.JLabel;
+
 import frames.MainFrame;
 
 public class StartKeyListener implements KeyListener {
 
-    MainFrame mainFrame;
-    int[] selectectBox = new int[2];
+    private MainFrame mainFrame;
+    private JLabel newGameLabel;
+    private JLabel loadGameLabel;
+
+    private int[] selectectBox = new int[2];
 
     public StartKeyListener (MainFrame mainFrame) {
-
         this.mainFrame = mainFrame;
+        newGameLabel = mainFrame.getStartPanel().getNewGameLabel();
+        loadGameLabel = mainFrame.getStartPanel().getLoadGameLabel();
+
         selectectBox[0] = 1;
         newGameLabelOn();
 
@@ -52,7 +59,7 @@ public class StartKeyListener implements KeyListener {
             if(selectectBox[0] == 1) {
                 System.out.println("StartKeyListener: new game");
                 mainFrame.changeToNameInsert();
-                mainFrame.inNameThread.start();
+                mainFrame.getCurrentThread().start();
             } else {
                 System.out.println("StartKeyListener: load game");
             }
@@ -63,21 +70,21 @@ public class StartKeyListener implements KeyListener {
     public void keyReleased(KeyEvent e) { }
 
     public void newGameLabelOn () {
-        mainFrame.startPanel.newGameLabel.setBackground(Color.WHITE);
-        mainFrame.startPanel.newGameLabel.setForeground(Color.black);
+        newGameLabel.setBackground(Color.WHITE);
+        newGameLabel.setForeground(Color.black);
     }
     public void newGameLabelOff () {
-        mainFrame.startPanel.newGameLabel.setBackground(Color.black);
-        mainFrame.startPanel.newGameLabel.setForeground(Color.white);
+        newGameLabel.setBackground(Color.black);
+        newGameLabel.setForeground(Color.white);
     }
 
     public void loadGameLabelOn () {
-        mainFrame.startPanel.loadGameLabel.setBackground(Color.WHITE);
-        mainFrame.startPanel.loadGameLabel.setForeground(Color.black);
+        loadGameLabel.setBackground(Color.WHITE);
+        loadGameLabel.setForeground(Color.black);
     }
     public void loadGameLabelOff () {
-        mainFrame.startPanel.loadGameLabel.setBackground(Color.black);
-        mainFrame.startPanel.loadGameLabel.setForeground(Color.white);
+        loadGameLabel.setBackground(Color.black);
+        loadGameLabel.setForeground(Color.white);
     }
     
 }

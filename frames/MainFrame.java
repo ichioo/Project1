@@ -10,21 +10,21 @@ import keyListeners.*;
 
 public class MainFrame extends JFrame {
     //listeners
-    public StartKeyListener startKeyListener;
-    public NameInKeyListener nameInKeyListener;
-    public HomeKeyListener homeKeyListener;
-    public FightKeyListener fightKeyListener;
+    private StartKeyListener startKeyListener;
+    private NameInKeyListener nameInKeyListener;
+    private HomeKeyListener homeKeyListener;
+    private FightKeyListener fightKeyListener;
 
     //panels
-    public StartPanel startPanel;
-    public NameInPanel nameInPanel;
-    public HomePanel homePanel;
-    public FightPanel fightPanel;
+    private StartPanel startPanel;
+    private NameInPanel nameInPanel;
+    private HomePanel homePanel;
+    private FightPanel fightPanel;
 
     //-
-    public InsertNameThread inNameThread;
-    public Font gameFont;
-    public Player player;
+    private Thread thread;
+    private Font gameFont;
+    private Player player;
 
     public MainFrame () {
         createFont();
@@ -37,7 +37,7 @@ public class MainFrame extends JFrame {
         // getContentPane().add(homePanel);
 
         //first thread
-        inNameThread = new InsertNameThread(this);
+        thread = new InsertNameThread(this);
 
         //first listener
         startKeyListener = new StartKeyListener(this);
@@ -92,6 +92,11 @@ public class MainFrame extends JFrame {
         removeCurrentKeyListener();
         fightKeyListener = new FightKeyListener();
         addKeyListener(fightKeyListener);
+
+        //changes thread
+        thread = new FightThread();
+        ((FightThread) thread).addFightPanel(fightPanel);
+        thread.start();
         
     }
 
@@ -147,5 +152,48 @@ public class MainFrame extends JFrame {
             removeKeyListener(homeKeyListener);
             homeKeyListener = null;
         }
+    }
+
+    //gets
+    // -- key listeners
+    public StartKeyListener getStartKeyListener () {
+        return startKeyListener;
+    }
+    public NameInKeyListener getNameInKeyListener () {
+        return nameInKeyListener;
+    }
+    public HomeKeyListener getHomeKeyListener () {
+        return homeKeyListener;
+    }
+    public FightKeyListener getFightKeyListener () {
+        return fightKeyListener;
+    }
+    // -- panels
+    public StartPanel getStartPanel () {
+        return startPanel;
+    }
+    public NameInPanel getNameInPanel () {
+        return nameInPanel;
+    }
+    public HomePanel getHomePanel () {
+        return homePanel;
+    }
+    public FightPanel getFightPanel () {
+        return fightPanel;
+    }
+    // --
+    public Thread getCurrentThread () {
+        return thread;
+    }
+    public Font getFont () {
+        return gameFont;
+    }
+    public Player getPlayer () {
+        return player;
+    }
+
+    //sets
+    public void setPlayer (Player player) {
+        this.player = player;
     }
 }

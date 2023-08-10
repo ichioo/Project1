@@ -5,8 +5,8 @@ import javax.swing.*;
 
 public class HomePanel extends JPanel {
 
-    public JLabel enterFightLabel;
-    public JLabel seeStatsLabel;
+    private JLabel enterFightLabel;
+    private JLabel seeStatsLabel;
     
     public HomePanel (Font gameFont) {
         //--
@@ -39,5 +39,13 @@ public class HomePanel extends JPanel {
         //add components
         add(enterFightLabel);
         add(seeStatsLabel);
+    }
+
+    //gets
+    public JLabel getEnterFightLabel () {
+        return enterFightLabel;
+    }
+    public JLabel getSeeStatsLabel () {
+        return seeStatsLabel;
     }
 }

@@ -2,11 +2,11 @@ package skills;
 
 import characters.Enemy;
 
-public class Skill {
+public class Punch extends Skill{
     
-    private String name = "Skill par";
-    private int damage;
-    
+    public String name = "punch";
+    public int damage = 2;
+
     //gets
     public int getDamage () {
         return damage;
@@ -16,4 +16,5 @@ public class Skill {
     public String toString () {
         return name;
     }
+
 }

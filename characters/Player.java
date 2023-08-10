@@ -4,11 +4,11 @@ import skills.*;
 
 public class Player {
     
-    public String name;
-    public int maxHealth;
-    public int health;
+    private String name;
+    private int maxHealth;
+    private int health;
 
-    public Skill[] skills;
+    private Skill[] skills;
 
     public Player (String name) {
         this.name = name;
@@ -28,5 +28,24 @@ public class Player {
 
         }
 
+    }
+
+    //gets
+    public String getName () {
+        return name;
+    }
+    public int getMaxHealth () {
+        return maxHealth;
+    }
+    public int getHealth () {
+        return health;
+    }
+    public Skill[] getSkills () {
+        return skills;
+    }
+
+    //--
+    public String toString () {
+        return name;
     }
 }

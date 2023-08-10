@@ -1,16 +1,22 @@
 package characters;
 
+import skills.Skill;
+
 public class TestEnemy extends Enemy {
     
-    public String name = "test";
-    public int maxHealth;
-    public int health;
+    private String name = "test enemy";
+    private int maxHealth;
+    private int health;
 
     public TestEnemy () {
         maxHealth = 100;
         health = maxHealth;
     }
 
+    //--
+    public void getHit (Skill attack) {
+        health -= attack.getDamage();
+    }
 
     //gets
     public String getName () {
@@ -21,5 +27,10 @@ public class TestEnemy extends Enemy {
     }
     public int getHealth () {
         return health;
+    }
+
+    //--
+    public String toString () {
+        return name;
     }
 }

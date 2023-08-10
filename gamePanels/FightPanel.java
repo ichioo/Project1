@@ -8,16 +8,16 @@ import characters.*;
 public class FightPanel extends JPanel {
 
     //characters
-    Player player;
-    Enemy enemy;
+    private Player player;
+    private Enemy enemy;
 
     //player
-    JLabel playerNameLabel;
-    JProgressBar playerHpBar;
+    private JLabel playerNameLabel;
+    private JProgressBar playerHpBar;
 
     //enemy
-    JLabel enemyNameLabel;
-    JProgressBar enemyHpBar;
+    private JLabel enemyNameLabel;
+    private JProgressBar enemyHpBar;
 
     public FightPanel (Font gameFont) {
 
@@ -102,15 +102,14 @@ public class FightPanel extends JPanel {
     }
 
     public void setCharacters (Player player, Enemy enemy) {
-        
         this.player = player;
         this.enemy = enemy;
 
         //player hp bar
-        playerHpBar.setMaximum(player.maxHealth);
-        playerHpBar.setValue(player.health);
+        playerHpBar.setMaximum(player.getHealth());
+        playerHpBar.setValue(player.getHealth());
         //player
-        playerNameLabel.setText(player.name);
+        playerNameLabel.setText(player.getName());
 
         //enemy hp bar
         enemyHpBar.setMaximum(enemy.getMaxHealth());
@@ -118,6 +117,19 @@ public class FightPanel extends JPanel {
         //enemy
         enemyNameLabel.setText(enemy.getName());
         
+    }
+
+    public void refreshHealthBars () {
+        playerHpBar.setValue(player.getHealth());
+        enemyHpBar.setValue(enemy.getHealth());
+    }
+
+    //gets
+    public Player getPlayer () {
+        return player;
+    }
+    public Enemy getEnemy () {
+        return enemy;
     }
 
 }

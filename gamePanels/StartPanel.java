@@ -5,8 +5,8 @@ import javax.swing.*;
 
 public class StartPanel extends JPanel {
 
-    public JLabel newGameLabel;
-    public JLabel loadGameLabel;
+    private JLabel newGameLabel;
+    private JLabel loadGameLabel;
     
     public StartPanel (Font gameFont) {
         //--
@@ -50,5 +50,13 @@ public class StartPanel extends JPanel {
         add(gameTitleLabel);
         add(newGameLabel);
         add(loadGameLabel);
+    }
+
+    //gets
+    public JLabel getNewGameLabel () {
+        return newGameLabel;
+    }
+    public JLabel getLoadGameLabel () {
+        return loadGameLabel;
     }
 }

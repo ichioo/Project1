@@ -4,7 +4,7 @@ import java.awt.*;
 import javax.swing.*;
     
 public class NameInPanel extends JPanel {
-    public JLabel nameInsertLabel;
+    private JLabel nameInsertLabel;
 
     public NameInPanel (Font gameFont) {
         //--
@@ -26,6 +26,10 @@ public class NameInPanel extends JPanel {
         
     }
 
+    //gets
+    public JLabel getNameInsertLabel () {
+        return nameInsertLabel;
+    }
 }
 
 

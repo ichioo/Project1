@@ -3,15 +3,26 @@ package keyListeners;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
+import javax.swing.JLabel;
+
+import characters.*;
 import frames.MainFrame;
+import skills.Punch;
 
 public class HomeKeyListener implements KeyListener{
 
-    MainFrame mainFrame;
-    int[] selectectBox = new int[2];
+    private MainFrame mainFrame;
+    private int[] selectectBox = new int[2];
+
+    private JLabel enterFightLabel;
+    private JLabel seeStatsLabel;
 
     public HomeKeyListener (MainFrame mainFrame) {
         this.mainFrame = mainFrame;
+        enterFightLabel = mainFrame.getHomePanel().getEnterFightLabel();
+        seeStatsLabel = mainFrame.getHomePanel().getSeeStatsLabel();
+
         selectectBox[0] = 1;
         enterFightLabOn();
     }
@@ -49,7 +60,15 @@ public class HomeKeyListener implements KeyListener{
         
         if(isEnterKey) {
             if(selectectBox[0] == 1) {
+                Player player = mainFrame.getPlayer();
+                TestEnemy testEnemy = new TestEnemy();
+
+                player.addSkill(new Punch(), 0);
+
                 mainFrame.changeToFight();
+                mainFrame.getFightPanel().setCharacters(player, testEnemy);
+                mainFrame.getFightKeyListener().setCharacters(player, testEnemy);
+
                 System.out.println("HomeKeyListener: enter fight");
 
             } else {
@@ -63,21 +82,21 @@ public class HomeKeyListener implements KeyListener{
     public void keyReleased(KeyEvent e) { }
 
     public void enterFightLabOn () {
-        mainFrame.homePanel.enterFightLabel.setForeground(Color.black);
-        mainFrame.homePanel.enterFightLabel.setBackground(Color.white);
+        enterFightLabel.setForeground(Color.black);
+        enterFightLabel.setBackground(Color.white);
     }
     public void enterFightLabOff () {
-        mainFrame.homePanel.enterFightLabel.setForeground(Color.white);
-        mainFrame.homePanel.enterFightLabel.setBackground(Color.black);
+        enterFightLabel.setForeground(Color.white);
+        enterFightLabel.setBackground(Color.black);
     }
 
     public void seeStatsLabOn () {
-        mainFrame.homePanel.seeStatsLabel.setForeground(Color.black);
-        mainFrame.homePanel.seeStatsLabel.setBackground(Color.white);
+        seeStatsLabel.setForeground(Color.black);
+        seeStatsLabel.setBackground(Color.white);
     }
     public void seeStatsLabOff () {
-        mainFrame.homePanel.seeStatsLabel.setForeground(Color.white);
-        mainFrame.homePanel.seeStatsLabel.setBackground(Color.black);
+        seeStatsLabel.setForeground(Color.white);
+        seeStatsLabel.setBackground(Color.black);
     }
         
 }

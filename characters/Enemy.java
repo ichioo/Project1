@@ -1,11 +1,15 @@
 package characters;
 
+import skills.Skill;
+
 public class Enemy {
     
-    public String name = "Enemy par";
-    public int maxHealth;
-    public int health;
+    private String name = "Enemy par";
+    private int maxHealth;
+    private int health;
 
+    //--
+    public void getHit (Skill attack) { }
 
     //gets
     public String getName () {
@@ -16,5 +20,10 @@ public class Enemy {
     }
     public int getHealth () {
         return health;
+    }
+
+    //--
+    public String toString () {
+        return name;
     }
 }

@@ -1,18 +1,16 @@
 package gameThreads;
 
 import java.awt.Font;
-import characters.*;
 import frames.MainFrame;
 
 public class InsertNameThread extends Thread{
 
-    MainFrame mainFrame;
-    Font gameFont;
-    Player player;
+    private MainFrame mainFrame;
+    private Font gameFont;
 
     public InsertNameThread (MainFrame mainFrame) {
         this.mainFrame = mainFrame;
-        gameFont = mainFrame.gameFont;
+        gameFont = mainFrame.getFont();
     }
 
     @Override
@@ -28,7 +26,7 @@ public class InsertNameThread extends Thread{
         //takes chars 1 by 1 form text and puts it into the effectString that is set as the text to the nameInseredLabel
         for (int i=0; i<text.length(); i++) {
             effectString += text.charAt(i);
-            mainFrame.nameInPanel.nameInsertLabel.setText(effectString);
+            mainFrame.getNameInPanel().getNameInsertLabel().setText(effectString);
 
             try {
                 Thread.sleep(50);
