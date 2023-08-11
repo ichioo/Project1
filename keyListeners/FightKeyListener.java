@@ -14,12 +14,23 @@ public class FightKeyListener implements KeyListener {
     public void keyTyped(KeyEvent e) { }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-
+    public void keyPressed(KeyEvent e) { }
+    
+    @Override
+    public void keyReleased(KeyEvent e) {
+        
         if(e.getKeyChar() == '1') {
             if(playerSkills[0] != null) {
-                enemy.getHit(playerSkills[0]);
-                System.out.println("FightKeyListener: skill used: " + playerSkills[0]);
+                if(!playerSkills[0].isDown()) {
+
+                    enemy.getHit(playerSkills[0]);
+                    playerSkills[0].putInDown();
+                    System.out.println("FightKeyListener: skill used: " + playerSkills[0]);
+                } else {
+
+                    System.out.println("skill down");
+                }
+
             }
         }
         if(e.getKeyChar() == '2') {
@@ -37,10 +48,8 @@ public class FightKeyListener implements KeyListener {
                 enemy.getHit(playerSkills[3]);
             }
         }
+
     }
-    
-    @Override
-    public void keyReleased(KeyEvent e) { }
 
     //-- 
     public void setCharacters (Player player, Enemy enemy) {

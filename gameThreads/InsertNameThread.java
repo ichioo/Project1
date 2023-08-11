@@ -1,16 +1,13 @@
 package gameThreads;
 
-import java.awt.Font;
 import frames.MainFrame;
 
 public class InsertNameThread extends Thread{
 
     private MainFrame mainFrame;
-    private Font gameFont;
 
     public InsertNameThread (MainFrame mainFrame) {
         this.mainFrame = mainFrame;
-        gameFont = mainFrame.getFont();
     }
 
     @Override

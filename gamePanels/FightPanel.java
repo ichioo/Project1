@@ -17,6 +17,7 @@ public class FightPanel extends JPanel {
 
     //enemy
     private JLabel enemyNameLabel;
+    private JLabel enemyActionLabel;
     private JProgressBar enemyHpBar;
 
     public FightPanel (Font gameFont) {
@@ -76,11 +77,11 @@ public class FightPanel extends JPanel {
         enemyNameLabel.setBounds(enemyHpBar.getX() + enemyHpBar.getWidth() + 10, enemyHpBar.getY(),150 , enemyHpBar.getHeight());
         enemyNameLabel.setFont(gameFont.deriveFont(20f));
 
-        JLabel enemyAction = new JLabel("mons action");
-        enemyAction.setBorder(BorderFactory.createLineBorder(Color.darkGray, 3));
-        enemyAction.setBounds(100, 350, 400, 80);
-        enemyAction.setFont(gameFont.deriveFont(40f));
-        enemyAction.setHorizontalAlignment(JLabel.CENTER);
+        enemyActionLabel = new JLabel("mons action");
+        enemyActionLabel.setBorder(BorderFactory.createLineBorder(Color.darkGray, 3));
+        enemyActionLabel.setBounds(100, 350, 400, 80);
+        enemyActionLabel.setFont(gameFont.deriveFont(40f));
+        enemyActionLabel.setHorizontalAlignment(JLabel.CENTER);
 
 
         //-- Add components
@@ -98,7 +99,7 @@ public class FightPanel extends JPanel {
         add(enemyImageLabel);
         add(enemyHpBar);
         add(enemyNameLabel);
-        add(enemyAction);
+        add(enemyActionLabel);
     }
 
     public void setCharacters (Player player, Enemy enemy) {
@@ -131,5 +132,9 @@ public class FightPanel extends JPanel {
     public Enemy getEnemy () {
         return enemy;
     }
+    public JLabel getEnemyActionLabel () {
+        return enemyActionLabel;
+    }
+
 
 }

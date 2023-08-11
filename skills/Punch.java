@@ -1,15 +1,35 @@
 package skills;
 
-import characters.Enemy;
+import gameThreads.DownTimeThread;
 
 public class Punch extends Skill{
     
-    public String name = "punch";
-    public int damage = 2;
+    private String name = "punch";
+    private int damage = 2;
+    private int downTime = 2;
+    private boolean isDown = false;
+
+    private DownTimeThread downTimeThread = new DownTimeThread(this);
 
     //gets
     public int getDamage () {
         return damage;
+    }
+    public int getDownTime () {
+        return downTime;
+    }
+    public boolean isDown () {
+        return isDown;
+    }
+    //sets
+    public void setIsDown (boolean isDown) {
+        this.isDown = isDown;
+    }
+
+    //--
+    public void putInDown () {
+        downTimeThread.start();
+        downTimeThread = new DownTimeThread(this);
     }
 
     //--
