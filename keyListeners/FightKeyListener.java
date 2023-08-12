@@ -18,7 +18,7 @@ public class FightKeyListener implements KeyListener {
     
     @Override
     public void keyReleased(KeyEvent e) {
-        
+
         if(e.getKeyChar() == '1') {
             if(playerSkills[0] != null) {
                 if(!playerSkills[0].isDown()) {

@@ -18,12 +18,20 @@ public class HomeKeyListener implements KeyListener{
     private JLabel enterFightLabel;
     private JLabel seeStatsLabel;
 
+    //booleans
+    private boolean onEnterFight;
+    private boolean onSeeStats;
+
     public HomeKeyListener (MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         enterFightLabel = mainFrame.getHomePanel().getEnterFightLabel();
         seeStatsLabel = mainFrame.getHomePanel().getSeeStatsLabel();
-
+        
+        //select values
         selectectBox[0] = 1;
+        onEnterFight = selectectBox[0] == 1;
+        onSeeStats = selectectBox[1] == 1;
+
         enterFightLabOn();
     }
 
@@ -59,7 +67,7 @@ public class HomeKeyListener implements KeyListener{
         }
         
         if(isEnterKey) {
-            if(selectectBox[0] == 1) {
+            if(onEnterFight) {
                 Player player = mainFrame.getPlayer();
                 TestEnemy testEnemy = new TestEnemy();
 
@@ -71,7 +79,7 @@ public class HomeKeyListener implements KeyListener{
 
                 System.out.println("HomeKeyListener: enter fight");
 
-            } else {
+            } else if (onSeeStats) {
                 System.out.println("HomeKeyListener: see stats");
 
             }

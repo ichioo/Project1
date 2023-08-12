@@ -20,11 +20,11 @@ public class Player {
     public void addSkill (Skill skill, int slot) {
 
         if(skills[slot] != null) {
-            System.out.println("player: slot occupato");
+            System.out.println("Player: slot occupato");
 
         } else {
             skills[slot] = skill;
-            System.out.println("player: skill inserita");
+            System.out.println("Player: skill inserita");
 
         }
 
