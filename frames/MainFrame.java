@@ -14,6 +14,7 @@ public class MainFrame extends JFrame {
     private NameInKeyListener nameInKeyListener;
     private HomeKeyListener homeKeyListener;
     private FightKeyListener fightKeyListener;
+    private SkillsPanelKeyListener skillsPanelKeyListener;
 
     //panels
     private StartPanel startPanel;
@@ -119,9 +120,9 @@ public class MainFrame extends JFrame {
         repaint();
 
         //changes the keylistener
-        // removeCurrentKeyListener();
-        // homeKeyListener = new HomeKeyListener(this);
-        // addKeyListener(homeKeyListener);
+        removeCurrentKeyListener();
+        skillsPanelKeyListener = new SkillsPanelKeyListener(this);
+        addKeyListener(skillsPanelKeyListener);
 
     }
 
@@ -150,6 +151,9 @@ public class MainFrame extends JFrame {
         if(homePanel != null) {
             remove(homePanel);
         }
+        if(skillsPanel != null) {
+            remove(skillsPanel);
+        }
     }
 
     public void removeCurrentKeyListener () {
@@ -168,6 +172,10 @@ public class MainFrame extends JFrame {
         if(homeKeyListener != null) {
             removeKeyListener(homeKeyListener);
             homeKeyListener = null;
+        }
+        if(skillsPanelKeyListener != null) {
+            removeKeyListener(skillsPanelKeyListener);
+            skillsPanelKeyListener = null;
         }
     }
 
@@ -197,6 +205,9 @@ public class MainFrame extends JFrame {
     }
     public FightPanel getFightPanel () {
         return fightPanel;
+    }
+    public SkillsPanel getSkillsPanel () {
+        return skillsPanel;
     }
     // --
     public Thread getCurrentThread () {

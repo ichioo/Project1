@@ -7,17 +7,17 @@ import java.awt.*;
 public class SkillsPanel extends JPanel {
     
     private JLabel[][] skillSlots;
+    private int rows = 5;
+    private int columns = 3;
 
     public SkillsPanel (
     ) {
         //--
         setLayout(null);
         setPreferredSize(new Dimension(600,600));
-        setBackground(Color.gray);
+        setBackground(Color.black);
         
         //Components
-        int columns = 3;
-        int rows = 5;
         skillSlots = new JLabel[rows][columns];
 
         int startX = 20;
@@ -31,7 +31,8 @@ public class SkillsPanel extends JPanel {
             for (int row = 1; row <= rows; row ++) {
                 skillSlots[row-1][column-1] = new JLabel("row- " + row + " column- " + column);
                 skillSlots[row-1][column-1].setBorder(BorderFactory.createLineBorder(Color.darkGray,3));
-                
+                skillSlots[row-1][column-1].setForeground(Color.white);
+
                 //idk how to explaing, basiclly inserts all the labels
                 if (row == 1 && column == 1) {
                     skillSlots[row-1][column-1].setBounds(startX, startY, width, height);
@@ -51,5 +52,14 @@ public class SkillsPanel extends JPanel {
 
     }
 
+    public int getGridRows () {
+        return rows;
+    }
+    public int getGridColumns () {
+        return columns;
+    }
+    public JLabel[][] getSkillSlots () {
+        return skillSlots;
+    }
 
 }
