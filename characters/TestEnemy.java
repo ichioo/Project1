@@ -1,7 +1,6 @@
 package characters;
 
 import javax.swing.JLabel;
-import gamePanels.FightPanel;
 import skills.Skill;
 
 public class TestEnemy extends Enemy {
@@ -16,7 +15,6 @@ public class TestEnemy extends Enemy {
     private boolean isWaiting = false;
      
     //--
-    private FightPanel fightPanel;
     private JLabel enemyActionLabel;
 
     public TestEnemy () {
@@ -36,13 +34,20 @@ public class TestEnemy extends Enemy {
     }
 
     private void action1 () {
-        for(int i=0; i<20; i++) {
+        
+        long startTime;
+        long endTime;
+
+        for (int i=0; i<=40; i++) {
+            startTime = System.nanoTime();
+            //--
 
             enemyActionLabel.setText(Integer.toString(i));
 
-            fightPanel.refreshHealthBars();
+            //--
+            endTime = System.nanoTime();
             try {
-                Thread.sleep(1000);
+                Thread.sleep((1000000000 - (endTime-startTime)) / 1000000);
             } catch (Exception e) { }
         }
     }
@@ -76,12 +81,9 @@ public class TestEnemy extends Enemy {
     public void setIsWaiting (boolean isWaiting) {
         this.isWaiting = isWaiting;
     }
-    public void setFightPanel (FightPanel fightPanel) {
-        this.fightPanel = fightPanel;
-        enemyActionLabel = fightPanel.getEnemyActionLabel();
+    public void setFightPanel (JLabel enemyActionLabel) {
+        this.enemyActionLabel = enemyActionLabel;
     }
-
-    
 
     //--
     public String toString () {

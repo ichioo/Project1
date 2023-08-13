@@ -1,8 +1,6 @@
 package characters;
 
 import javax.swing.JLabel;
-
-import gamePanels.FightPanel;
 import skills.Skill;
 
 public class Enemy {
@@ -17,7 +15,6 @@ public class Enemy {
     private boolean isWaiting = false;
      
     //--
-    private FightPanel fightPanel;
     private JLabel enemyActionLabel;
     
 
@@ -46,6 +43,9 @@ public class Enemy {
     public boolean getIsWaiting () {
         return isWaiting;
     }
+    public JLabel getEnemyActionLabel () {
+        return enemyActionLabel;
+    }
     //sets
     public void setIsDefending (boolean isDefending) {
         this.isDefending = isDefending;
@@ -56,8 +56,8 @@ public class Enemy {
     public void setIsWaiting (boolean isWaiting) {
         this.isWaiting = isWaiting;
     }
-    public void setFightPanel (FightPanel fightPanel) {
-        this.fightPanel = fightPanel;
+    public void setFightPanel (JLabel enemyActionLabel) {
+        this.enemyActionLabel = enemyActionLabel;
     }
 
     //--

@@ -27,7 +27,8 @@ public class DownTimeThread extends Thread {
                 Thread.sleep(1000);
             } catch (Exception e) { }
 
-            System.out.println(skill + " down");
+            
+
             i--;
             inDownTime = i != 0;
         }

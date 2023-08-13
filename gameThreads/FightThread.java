@@ -21,7 +21,10 @@ public class FightThread extends Thread {
     }
 
     private void fight () {
-        enemy.setFightPanel(fightPanel);
+        Thread healthUpdaterThread = new HealthUpdateThread(fightPanel);
+        healthUpdaterThread.start();
+
+        enemy.setFightPanel(fightPanel.getEnemyActionLabel());
         enemy.startActions();
     }
 

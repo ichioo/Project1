@@ -14,6 +14,11 @@ public class StartKeyListener implements KeyListener {
     private JLabel newGameLabel;
     private JLabel loadGameLabel;
 
+    //keys
+    private boolean up;
+    private boolean down;
+    private boolean isEnterKey;
+
     private int[] selectectBox = new int[2];
 
     public StartKeyListener (MainFrame mainFrame) {
@@ -32,9 +37,9 @@ public class StartKeyListener implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) { 
 
-        boolean up = e.getKeyCode() == 38;
-        boolean down = e.getKeyCode() == 40;
-        boolean isEnterKey = e.getKeyCode() == 10;
+        up = e.getKeyCode() == 38;
+        down = e.getKeyCode() == 40;
+        isEnterKey = e.getKeyCode() == 10;
 
         if(up) {
             if(selectectBox[0] != 1) {

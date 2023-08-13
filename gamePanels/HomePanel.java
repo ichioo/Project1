@@ -7,7 +7,8 @@ public class HomePanel extends JPanel {
 
     private JLabel enterFightLabel;
     private JLabel seeStatsLabel;
-    
+    private JLabel seeSkillsLabel;
+
     public HomePanel (Font gameFont) {
         //--
         setLayout(null);
@@ -15,13 +16,15 @@ public class HomePanel extends JPanel {
         setBackground(Color.BLACK);
 
         //components
+        int startLabX = 100;
+        int startLabY = 150;
         int selectLabHeight = 150;
         int selectLabWidth = 200;
 
         enterFightLabel = new JLabel("enter fight");
         enterFightLabel.setBorder(BorderFactory.createLineBorder(Color.darkGray, 3));
         enterFightLabel.setForeground(Color.white);
-        enterFightLabel.setBounds(100, 200, selectLabWidth, selectLabHeight);
+        enterFightLabel.setBounds(startLabX, startLabY, selectLabWidth, selectLabHeight);
         enterFightLabel.setFont(gameFont.deriveFont(30f));
         enterFightLabel.setHorizontalAlignment(JLabel.CENTER);
         enterFightLabel.setOpaque(true);
@@ -36,9 +39,19 @@ public class HomePanel extends JPanel {
         seeStatsLabel.setOpaque(true);
         seeStatsLabel.setBackground(Color.BLACK);
 
+        seeSkillsLabel = new JLabel("see skills");
+        seeSkillsLabel.setBorder(BorderFactory.createLineBorder(Color.darkGray, 3));
+        seeSkillsLabel.setForeground(Color.white);
+        seeSkillsLabel.setBounds(enterFightLabel.getX(), enterFightLabel.getY() + enterFightLabel.getHeight() + 10, selectLabWidth, selectLabHeight);
+        seeSkillsLabel.setFont(gameFont.deriveFont(30f));
+        seeSkillsLabel.setHorizontalAlignment(JLabel.CENTER);
+        seeSkillsLabel.setOpaque(true);
+        seeSkillsLabel.setBackground(Color.BLACK);
+
         //add components
         add(enterFightLabel);
         add(seeStatsLabel);
+        add(seeSkillsLabel);
     }
 
     //gets
@@ -47,5 +60,8 @@ public class HomePanel extends JPanel {
     }
     public JLabel getSeeStatsLabel () {
         return seeStatsLabel;
+    }
+    public JLabel getSeeSkillsLabel () {
+        return seeSkillsLabel;
     }
 }

@@ -20,6 +20,7 @@ public class MainFrame extends JFrame {
     private NameInPanel nameInPanel;
     private HomePanel homePanel;
     private FightPanel fightPanel;
+    private SkillsPanel skillsPanel;
 
     //-
     private Thread thread;
@@ -48,6 +49,16 @@ public class MainFrame extends JFrame {
         this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
+
+    }
+    
+    //--
+    public void createAllPanels () {
+        startPanel = new StartPanel(gameFont);
+        nameInPanel = new NameInPanel(gameFont);
+        fightPanel = new FightPanel(gameFont);
+        homePanel = new HomePanel(gameFont);
+        skillsPanel = new SkillsPanel();
 
     }
 
@@ -100,15 +111,21 @@ public class MainFrame extends JFrame {
         
     }
 
-    //--
-    public void createAllPanels () {
-        startPanel = new StartPanel(gameFont);
-        nameInPanel = new NameInPanel(gameFont);
-        fightPanel = new FightPanel(gameFont);
-        homePanel = new HomePanel(gameFont);
+    public void changeToSkills () {
+        //changes the panel
+        removeCurrentPanel();
+        getContentPane().add(skillsPanel);
+        validate();
+        repaint();
+
+        //changes the keylistener
+        // removeCurrentKeyListener();
+        // homeKeyListener = new HomeKeyListener(this);
+        // addKeyListener(homeKeyListener);
 
     }
 
+    //--
     public void createFont () {
         try { 
             gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("UpheavalPro.ttf")).deriveFont(25f);
