@@ -35,6 +35,7 @@ public class SkillsPanelKeyListener implements KeyListener{
         intSlots = new int[skillsPanel.getGridRows()][skillsPanel.getGridColumns()];
 
         turnOnBox(currentBoxRow, currentBoxCol);
+        skillsPanel.seeSkillDetails(currentBoxCol, currentBoxRow);
     }
 
     @Override
@@ -65,6 +66,7 @@ public class SkillsPanelKeyListener implements KeyListener{
         }
 
         turnOnBox(currentBoxRow, currentBoxCol);
+        skillsPanel.seeSkillDetails(currentBoxCol, currentBoxRow);
     }
 
     @Override

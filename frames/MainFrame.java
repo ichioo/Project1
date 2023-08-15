@@ -34,11 +34,12 @@ public class MainFrame extends JFrame {
     private GameSaverLoader gameSaverLoader;
 
     public MainFrame () {
+        ////
         setTitle("Game title");
         createFont();
         gameSaverLoader = new GameSaverLoader();
 
-        //window panel
+        //first panel
         startPanel = new StartPanel(gameFont);
         getContentPane().add(startPanel);
 
@@ -49,8 +50,9 @@ public class MainFrame extends JFrame {
         startKeyListener = new StartKeyListener(this);
         addKeyListener(startKeyListener);
 
-        //--
+        //window listener
         addWindowListener(new FrameListener(this));
+        //--
         pack();
         setLocationRelativeTo(null);
         setResizable(false);
@@ -113,7 +115,7 @@ public class MainFrame extends JFrame {
     public void changeToSkills () {
         //changes the panel
         removeCurrentPanel();
-        skillsPanel = new SkillsPanel();
+        skillsPanel = new SkillsPanel(player, gameFont);
         getContentPane().add(skillsPanel);
         validate();
         repaint();

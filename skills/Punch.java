@@ -1,22 +1,22 @@
 package skills;
 
-import gameThreads.DownTimeThread;
+import gameThreads.CooldownThread;
 
 public class Punch extends Skill{
     
     private String name = "punch";
     private int damage = 2;
-    private int downTime = 2;
+    private int cooldown = 2;
     private boolean isDown = false;
 
-    private DownTimeThread downTimeThread = new DownTimeThread(this);
+    private CooldownThread cooldownThread = new CooldownThread(this);
 
     //gets
     public int getDamage () {
         return damage;
     }
-    public int getDownTime () {
-        return downTime;
+    public int getCooldown () {
+        return cooldown;
     }
     public boolean isDown () {
         return isDown;
@@ -28,8 +28,8 @@ public class Punch extends Skill{
 
     //--
     public void putInDown () {
-        downTimeThread.start();
-        downTimeThread = new DownTimeThread(this);
+        cooldownThread.start();
+        cooldownThread = new CooldownThread(this);
     }
 
     //--

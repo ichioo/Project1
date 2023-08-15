@@ -3,9 +3,7 @@ package listeners;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import javax.swing.JLabel;
-
 import characters.Player;
 import frames.MainFrame;
 import gameSaverLoader.GameSaverLoader;
@@ -77,7 +75,9 @@ public class StartKeyListener implements KeyListener {
                 //loading player
                 gameSaverLoader = new GameSaverLoader();    
                 Player loadedPlayer = gameSaverLoader.load();
-                if (loadedPlayer != null) {
+
+                boolean playerLoaded = loadedPlayer != null;
+                if (playerLoaded) {
 
                     mainFrame.setPlayer(loadedPlayer);
                     System.out.println("Player loaded");

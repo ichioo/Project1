@@ -1,22 +1,24 @@
 package skills;
 
-import gameThreads.DownTimeThread;
+import java.io.Serializable;
 
-public class Skill {
+import gameThreads.CooldownThread;
+
+public class Skill implements Serializable{
     
     private String name = "Skill par";
     private int damage;
-    private int downTime;
+    private int cooldown;
     private boolean isDown = false;
     
-    private DownTimeThread downTimeThread;
+    private CooldownThread cooldownThread;
 
     //gets
     public int getDamage () {
         return damage;
     }
-    public int getDownTime () {
-        return downTime;
+    public int getCooldown () {
+        return cooldown;
     }
     public boolean isDown () {
         return isDown;

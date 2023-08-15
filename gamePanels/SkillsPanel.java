@@ -1,17 +1,28 @@
 package gamePanels;
 
 import javax.swing.*;
+import characters.Player;
+import skills.Skill;
 import java.awt.*;
 
 
 public class SkillsPanel extends JPanel {
-    
+
+    private Player player;
+
     private JLabel[][] skillSlots;
     private int rows = 5;
     private int columns = 3;
 
-    public SkillsPanel (
-    ) {
+    //skill details section
+    private JLabel skillNameLabel;
+    private JLabel skillImgLabel;
+    private JLabel skillDamageLabel;
+    private JLabel skillCooldownLabel;
+
+    public SkillsPanel (Player player, Font gameFont) {
+        this.player = player;
+        
         //--
         setLayout(null);
         setPreferredSize(new Dimension(600,600));
@@ -29,7 +40,7 @@ public class SkillsPanel extends JPanel {
 
         for (int column = 1; column <= columns; column++) {            
             for (int row = 1; row <= rows; row ++) {
-                skillSlots[row-1][column-1] = new JLabel("row- " + row + " column- " + column);
+                skillSlots[row-1][column-1] = new JLabel();
                 skillSlots[row-1][column-1].setBorder(BorderFactory.createLineBorder(Color.darkGray,3));
                 skillSlots[row-1][column-1].setForeground(Color.white);
 
@@ -50,8 +61,91 @@ public class SkillsPanel extends JPanel {
             startX += width + xSpace;
         }
 
+        setSkillsInSlots();
+
+        // -- skill details section
+        skillNameLabel = new JLabel();
+        skillNameLabel.setBorder(BorderFactory.createLineBorder(Color.darkGray,3));
+        skillNameLabel.setForeground(Color.white);
+        skillNameLabel.setFont(gameFont);
+        skillNameLabel.setHorizontalAlignment(JLabel.CENTER);
+        skillNameLabel.setBounds(375, startY, 210, 100);
+
+        skillImgLabel = new JLabel("image");
+        skillImgLabel.setBorder(BorderFactory.createLineBorder(Color.darkGray,3));
+        skillImgLabel.setForeground(Color.white);
+        skillImgLabel.setHorizontalAlignment(JLabel.CENTER);
+        skillImgLabel.setBounds(415, 160, 127, 104);
+
+        skillDamageLabel = new JLabel();
+        skillDamageLabel.setBorder(BorderFactory.createLineBorder(Color.darkGray,3));
+        skillDamageLabel.setForeground(Color.white);
+        skillDamageLabel.setFont(gameFont);
+        skillDamageLabel.setHorizontalAlignment(JLabel.CENTER);
+        skillDamageLabel.setBounds(375, 274, 210, 50);
+
+        skillCooldownLabel = new JLabel();
+        skillCooldownLabel.setBorder(BorderFactory.createLineBorder(Color.darkGray,3));
+        skillCooldownLabel.setForeground(Color.white);
+        skillCooldownLabel.setFont(gameFont);
+        skillCooldownLabel.setHorizontalAlignment(JLabel.CENTER);
+        skillCooldownLabel.setBounds(375, 334, 210, 50);
+
+
+        //add components
+        add(skillNameLabel);
+        add(skillImgLabel);
+        add(skillDamageLabel);
+        add(skillCooldownLabel);
     }
 
+    //--
+    private void setSkillsInSlots () {
+
+        Skill[] playerSkills = player.getAllSkills();
+        int counter = 0;
+
+        for (JLabel[] skillRow : skillSlots) {
+
+            for (JLabel skillBox : skillRow) {
+                //checks if the player has more skills
+                if (playerSkills[counter] != null) {
+                    skillBox.setText(playerSkills[counter].toString());
+                    counter ++;
+                }
+            }
+        }
+    }
+
+    public void seeSkillDetails (int column, int row) {
+        int skillNumber = 0;
+
+        if (row == 0) {
+            skillNumber = column;
+        } else {
+            skillNumber = columns * row + column;
+        }
+
+        Skill[] playerSkills = player.getAllSkills();
+
+        try {
+            updateLabelsWithSkill(playerSkills[skillNumber]);
+        } catch (Exception e) { }
+    }
+
+    private void updateLabelsWithSkill (Skill skill) {
+        if (skill == null) {
+            skillNameLabel.setText("");
+            skillDamageLabel.setText("damage: ");
+            skillCooldownLabel.setText("cooldown: ");
+        } else {
+            skillNameLabel.setText(skill.toString());
+            skillDamageLabel.setText("damage: " + skill.getDamage());
+            skillCooldownLabel.setText("cooldown: " + skill.getCooldown());
+        }
+    }
+
+    //gets
     public int getGridRows () {
         return rows;
     }
@@ -62,4 +156,5 @@ public class SkillsPanel extends JPanel {
         return skillSlots;
     }
 
+    
 }

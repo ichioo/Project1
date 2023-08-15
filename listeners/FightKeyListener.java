@@ -61,7 +61,7 @@ public class FightKeyListener implements KeyListener {
     //sets
     public void setPlayer (Player player) {
         this.player = player;
-        playerSkills = player.getSkills();
+        playerSkills = player.getEquippedSkills();
     }
 
     //gets

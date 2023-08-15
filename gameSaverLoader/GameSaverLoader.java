@@ -33,6 +33,7 @@ public class GameSaverLoader {
 
             return loadedPlayer;
         } catch (Exception e) {
+            
             System.out.println("GameSaverLoader, load: error - " + e.getMessage());
         }
 
@@ -54,7 +55,10 @@ public class GameSaverLoader {
             fOut.close();
 
             return 0;
-        } catch (Exception e) { }
+        } catch (Exception e) {
+
+            System.out.println("GameSaverLoader, save: error - " + e.getMessage());
+        }
 
         return 1;
     }

@@ -17,6 +17,8 @@ public class FrameListener extends WindowAdapter {
 
         if (mainFrame.getGameSaverLoader().save(mainFrame.getPlayer()) == 0) {
             System.out.println("Player saved");
+        } else {
+            System.out.println("Player didn't save");
         }
         
         System.out.println("Frame closed");

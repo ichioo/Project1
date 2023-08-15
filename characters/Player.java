@@ -10,22 +10,39 @@ public class Player implements Serializable {
     private int maxHealth;
     private int health;
 
-    private Skill[] skills;
+    private Skill[] equippedSkills;
+    private Skill[] allSkills;
 
     public Player (String name) {
         this.name = name;
         maxHealth = 100;
         health = maxHealth;
-        skills = new Skill[4];
+        equippedSkills = new Skill[4];
+        allSkills = new Skill[5];
     }
 
     public void addSkill (Skill skill, int slot) {
+        //add to allSkills
+        int counter = 0;
+        boolean addedInAll = false;
+        
+        while (!addedInAll) {
 
-        if(skills[slot] != null) {
+            if (allSkills[counter] == null) {
+                allSkills[counter] = skill;
+                addedInAll = true;
+                System.out.println("Player: " + skill + " addeto to allSkills");
+            } else {
+                counter++;
+            }
+        }
+        
+        // (temporary) equip skill
+        if(equippedSkills[slot] != null) {
             System.out.println("Player: slot occupato");
 
         } else {
-            skills[slot] = skill;
+            equippedSkills[slot] = skill;
             System.out.println("Player: skill inserita");
 
         }
@@ -42,10 +59,12 @@ public class Player implements Serializable {
     public int getHealth () {
         return health;
     }
-    public Skill[] getSkills () {
-        return skills;
+    public Skill[] getEquippedSkills () {
+        return equippedSkills;
     }
-
+    public Skill[] getAllSkills () {
+        return allSkills;
+    }
     //--
     public String toString () {
         return name;

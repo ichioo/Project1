@@ -8,7 +8,6 @@ import javax.swing.JLabel;
 
 import characters.*;
 import frames.MainFrame;
-import skills.Punch;
 
 public class HomeKeyListener implements KeyListener{
 
@@ -87,8 +86,6 @@ public class HomeKeyListener implements KeyListener{
                 Player player = mainFrame.getPlayer();
                 TestEnemy testEnemy = new TestEnemy();
 
-                player.addSkill(new Punch(), 0);
-
                 mainFrame.changeToFight();
                 mainFrame.getFightPanel().setCharacters(player, testEnemy);
                 mainFrame.getFightKeyListener().setCharacters(player, testEnemy);
@@ -96,14 +93,13 @@ public class HomeKeyListener implements KeyListener{
                 System.out.println("HomeKeyListener: enter fight");
 
             } else if (onSeeStats) {
-                mainFrame.changeToStats();
 
+                mainFrame.changeToStats();
                 System.out.println("HomeKeyListener: see stats");
 
             } else if (onSeeSkills) {
 
                 mainFrame.changeToSkills();
-
                 System.out.println("HomeKeyListener: see skills");
             }
         }

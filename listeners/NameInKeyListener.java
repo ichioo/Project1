@@ -5,6 +5,7 @@ import javax.swing.*;
 
 import characters.Player;
 import frames.*;
+import skills.Punch;
 
 public class NameInKeyListener implements KeyListener {
 
@@ -47,7 +48,10 @@ public class NameInKeyListener implements KeyListener {
         //when pressed enter key
         if(isEnterKey) {
             playerName = nameInsertLabel.getText().substring(17);
-            mainFrame.setPlayer(new Player(playerName));
+            Player player = new Player(playerName);
+            player.addSkill(new Punch(), 0);
+
+            mainFrame.setPlayer(player);
             mainFrame.changeToHome();
             System.out.println("NameInKeyListener: enter");
         }
