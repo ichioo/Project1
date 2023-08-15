@@ -5,8 +5,9 @@ import java.io.File;
 import javax.swing.*;
 import characters.*;
 import gamePanels.*;
+import gameSaverLoader.GameSaverLoader;
 import gameThreads.*;
-import keyListeners.*;
+import listeners.*;
 
 public class MainFrame extends JFrame {
     //listeners
@@ -15,6 +16,7 @@ public class MainFrame extends JFrame {
     private HomeKeyListener homeKeyListener;
     private FightKeyListener fightKeyListener;
     private SkillsPanelKeyListener skillsPanelKeyListener;
+    private StatsKeyListener statsKeyListener;
 
     //panels
     private StartPanel startPanel;
@@ -22,21 +24,23 @@ public class MainFrame extends JFrame {
     private HomePanel homePanel;
     private FightPanel fightPanel;
     private SkillsPanel skillsPanel;
+    private StatsPanel statsPanel;
 
     //-
     private Thread thread;
     private Font gameFont;
     private Player player;
 
+    private GameSaverLoader gameSaverLoader;
+
     public MainFrame () {
+        setTitle("Game title");
         createFont();
-        createAllPanels();
+        gameSaverLoader = new GameSaverLoader();
 
         //window panel
         startPanel = new StartPanel(gameFont);
         getContentPane().add(startPanel);
-        // homePanel = new HomePanel(gameFont);
-        // getContentPane().add(homePanel);
 
         //first thread
         thread = new InsertNameThread(this);
@@ -46,20 +50,12 @@ public class MainFrame extends JFrame {
         addKeyListener(startKeyListener);
 
         //--
-        this.pack();
-        this.setResizable(false);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setVisible(true);
-
-    }
-    
-    //--
-    public void createAllPanels () {
-        startPanel = new StartPanel(gameFont);
-        nameInPanel = new NameInPanel(gameFont);
-        fightPanel = new FightPanel(gameFont);
-        homePanel = new HomePanel(gameFont);
-        skillsPanel = new SkillsPanel();
+        addWindowListener(new FrameListener(this));
+        pack();
+        setLocationRelativeTo(null);
+        setResizable(false);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setVisible(true);
 
     }
 
@@ -67,6 +63,7 @@ public class MainFrame extends JFrame {
     public void changeToNameInsert () {
         //changes the panel
         removeCurrentPanel();
+        nameInPanel = new NameInPanel(gameFont);
         getContentPane().add(nameInPanel);
         validate();
         repaint();
@@ -81,6 +78,7 @@ public class MainFrame extends JFrame {
     public void changeToHome () {
         //changes the panel
         removeCurrentPanel();
+        homePanel = new HomePanel(gameFont);
         getContentPane().add(homePanel);
         validate();
         repaint();
@@ -115,6 +113,7 @@ public class MainFrame extends JFrame {
     public void changeToSkills () {
         //changes the panel
         removeCurrentPanel();
+        skillsPanel = new SkillsPanel();
         getContentPane().add(skillsPanel);
         validate();
         repaint();
@@ -124,6 +123,20 @@ public class MainFrame extends JFrame {
         skillsPanelKeyListener = new SkillsPanelKeyListener(this);
         addKeyListener(skillsPanelKeyListener);
 
+    }
+
+    public void changeToStats () {
+        //changes the panel
+        removeCurrentPanel();
+        statsPanel = new StatsPanel(gameFont, player);
+        getContentPane().add(statsPanel);
+        validate();
+        repaint();
+
+        //changes the keylistener
+        removeCurrentKeyListener();
+        statsKeyListener = new StatsKeyListener(this);
+        addKeyListener(statsKeyListener);
     }
 
     //--
@@ -138,25 +151,36 @@ public class MainFrame extends JFrame {
         }
     }
     
-    public void removeCurrentPanel () {
+    private void removeCurrentPanel () {
+        //some panels are set to null because they are viewed only 1 time
         if(startPanel != null) {
             remove(startPanel);
+            startPanel = null;
         }
         if(nameInPanel != null) {
             remove(nameInPanel);
+            nameInPanel = null;
         }
         if(fightPanel != null) {
             remove(fightPanel);
+            fightPanel = null;
         }
         if(homePanel != null) {
             remove(homePanel);
+            homePanel = null;
         }
         if(skillsPanel != null) {
             remove(skillsPanel);
+            skillsPanel = null;
+        } 
+        if(statsPanel != null) {
+            remove(statsPanel);
+            statsPanel = null;
         }
+        
     }
 
-    public void removeCurrentKeyListener () {
+    private void removeCurrentKeyListener () {
         if(startKeyListener != null) {
             removeKeyListener(startKeyListener);
             startKeyListener = null;
@@ -176,6 +200,10 @@ public class MainFrame extends JFrame {
         if(skillsPanelKeyListener != null) {
             removeKeyListener(skillsPanelKeyListener);
             skillsPanelKeyListener = null;
+        }
+        if(statsKeyListener != null) {
+            removeKeyListener(statsKeyListener);
+            statsKeyListener = null;
         }
     }
 
@@ -210,6 +238,9 @@ public class MainFrame extends JFrame {
         return skillsPanel;
     }
     // --
+    public GameSaverLoader getGameSaverLoader () {
+        return gameSaverLoader;
+    }
     public Thread getCurrentThread () {
         return thread;
     }

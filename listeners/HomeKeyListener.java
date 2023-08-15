@@ -1,4 +1,4 @@
-package keyListeners;
+package listeners;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -96,6 +96,8 @@ public class HomeKeyListener implements KeyListener{
                 System.out.println("HomeKeyListener: enter fight");
 
             } else if (onSeeStats) {
+                mainFrame.changeToStats();
+
                 System.out.println("HomeKeyListener: see stats");
 
             } else if (onSeeSkills) {

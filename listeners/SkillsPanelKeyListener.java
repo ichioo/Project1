@@ -1,4 +1,4 @@
-package keyListeners;
+package listeners;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -23,6 +23,7 @@ public class SkillsPanelKeyListener implements KeyListener{
     private boolean right;
     private boolean up;
     private boolean down;
+    private boolean esc;
 
     private int currentBoxRow = 0;
     private int currentBoxCol = 0;
@@ -46,6 +47,7 @@ public class SkillsPanelKeyListener implements KeyListener{
         right = e.getKeyCode() == 39;
         up = e.getKeyCode() == 38;
         down = e.getKeyCode() == 40;
+        esc = e.getKeyCode() == 27;
 
         if (up && currentBoxRow != 0) {
             currentBoxRow -= 1;
@@ -55,6 +57,11 @@ public class SkillsPanelKeyListener implements KeyListener{
             currentBoxCol -= 1;
         } else if (right && currentBoxCol != skillsPanel.getGridColumns()-1) {
             currentBoxCol += 1;
+        }
+
+        if (esc) {
+            mainFrame.changeToHome();
+            System.out.println("SkillsPanelKeyListener : esc");
         }
 
         turnOnBox(currentBoxRow, currentBoxCol);
