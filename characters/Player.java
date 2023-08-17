@@ -36,17 +36,41 @@ public class Player implements Serializable {
                 counter++;
             }
         }
-        
-        // (temporary) equip skill
-        if(equippedSkills[slot] != null) {
-            System.out.println("Player: slot occupato");
 
-        } else {
-            equippedSkills[slot] = skill;
-            System.out.println("Player: skill inserita");
+    }
+
+    public int equipSkill (Skill skill) {
+        
+        //checks if the skill is arleady equipped
+        for (int i=0; i<4; i++) {
+
+            if (equippedSkills[i] == skill) {
+                System.out.println("Player: skill areleady equipped");
+                return 1;
+            }
+        }
+
+        //tries to add the skill
+        for (int i=0; i<4; i++) {
+
+            if (equippedSkills[i] == null) {
+                equippedSkills[i] = skill;
+                System.out.println("Player: skill equipped");
+                return 0;
+            }
 
         }
 
+        System.out.println("Player: slots are full");
+        return 1;
+    }
+
+    public void unequipSkill (int skillNumber) {
+
+        if (equippedSkills[skillNumber] != null) {
+            System.out.println("PLayer: skill " + equippedSkills[skillNumber] + " unequpipped");
+            equippedSkills[skillNumber] = null;
+        }
     }
 
     //gets

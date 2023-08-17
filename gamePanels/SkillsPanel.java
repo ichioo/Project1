@@ -20,6 +20,9 @@ public class SkillsPanel extends JPanel {
     private JLabel skillDamageLabel;
     private JLabel skillCooldownLabel;
 
+    //equipped skills
+    private JLabel[] equippedSkillsSlots;
+
     public SkillsPanel (Player player, Font gameFont) {
         this.player = player;
         
@@ -32,10 +35,10 @@ public class SkillsPanel extends JPanel {
         skillSlots = new JLabel[rows][columns];
 
         int startX = 20;
-        int startY = 50; 
+        int startY = 110; 
         int width = 110;
         int height = 90;
-        int ySpace = 10;
+        int ySpace = 5;
         int xSpace = 5;
 
         for (int column = 1; column <= columns; column++) {            
@@ -75,33 +78,71 @@ public class SkillsPanel extends JPanel {
         skillImgLabel.setBorder(BorderFactory.createLineBorder(Color.darkGray,3));
         skillImgLabel.setForeground(Color.white);
         skillImgLabel.setHorizontalAlignment(JLabel.CENTER);
-        skillImgLabel.setBounds(415, 160, 127, 104);
+        skillImgLabel.setBounds(415, skillNameLabel.getY() + skillNameLabel.getHeight() + ySpace, 127, 104);
 
         skillDamageLabel = new JLabel();
         skillDamageLabel.setBorder(BorderFactory.createLineBorder(Color.darkGray,3));
         skillDamageLabel.setForeground(Color.white);
         skillDamageLabel.setFont(gameFont);
         skillDamageLabel.setHorizontalAlignment(JLabel.CENTER);
-        skillDamageLabel.setBounds(375, 274, 210, 50);
+        skillDamageLabel.setBounds(375, skillImgLabel.getY() + skillImgLabel.getHeight() + ySpace, 210, 50);
 
         skillCooldownLabel = new JLabel();
         skillCooldownLabel.setBorder(BorderFactory.createLineBorder(Color.darkGray,3));
         skillCooldownLabel.setForeground(Color.white);
         skillCooldownLabel.setFont(gameFont);
         skillCooldownLabel.setHorizontalAlignment(JLabel.CENTER);
-        skillCooldownLabel.setBounds(375, 334, 210, 50);
-
+        skillCooldownLabel.setBounds(375, skillDamageLabel.getY() + skillDamageLabel.getHeight() +ySpace, 210, 50);
 
         //add components
         add(skillNameLabel);
         add(skillImgLabel);
         add(skillDamageLabel);
         add(skillCooldownLabel);
+
+        // -- equipped skills
+        equippedSkillsSlots = new JLabel[4];
+
+        int equippedStartX = 70;
+        int equippedStartY = 10;
+
+        for (int slot = 0; slot < 4; slot++) {
+
+            equippedSkillsSlots[slot] = new JLabel();
+            equippedSkillsSlots[slot].setBorder(BorderFactory.createLineBorder(Color.darkGray,3));
+            equippedSkillsSlots[slot].setForeground(Color.white);
+
+            if (slot == 0) {
+                equippedSkillsSlots[slot].setBounds(equippedStartX, equippedStartY, width, height);
+            } else {
+                equippedSkillsSlots[slot].setBounds(equippedStartX + ((width + xSpace) * slot), equippedStartY, width, height);
+            }
+
+            add(equippedSkillsSlots[slot]);
+        }
+
+        updateEquippedSkills();
     }
 
     //--
-    private void setSkillsInSlots () {
+    public void updateEquippedSkills () {
 
+        Skill[] equippedSkills = player.getEquippedSkills();
+
+        for (JLabel equippedSkillSlot : equippedSkillsSlots) {
+            equippedSkillSlot.setText("");
+        }
+
+        try {
+            equippedSkillsSlots[0].setText(equippedSkills[0].toString());
+            equippedSkillsSlots[1].setText(equippedSkills[1].toString());
+            equippedSkillsSlots[2].setText(equippedSkills[2].toString());
+            equippedSkillsSlots[3].setText(equippedSkills[3].toString());
+        } catch (Exception e) { }
+    }
+
+    private void setSkillsInSlots () {
+        
         Skill[] playerSkills = player.getAllSkills();
         int counter = 0;
 
@@ -117,7 +158,7 @@ public class SkillsPanel extends JPanel {
         }
     }
 
-    public void seeSkillDetails (int column, int row) {
+    public Skill getSkill (int column, int row) {
         int skillNumber = 0;
 
         if (row == 0) {
@@ -128,8 +169,13 @@ public class SkillsPanel extends JPanel {
 
         Skill[] playerSkills = player.getAllSkills();
 
+        return playerSkills[skillNumber];
+    }
+
+
+    public void seeSkillDetails (int column, int row) {
         try {
-            updateLabelsWithSkill(playerSkills[skillNumber]);
+            updateLabelsWithSkill(getSkill(column, row));
         } catch (Exception e) { }
     }
 
@@ -154,6 +200,9 @@ public class SkillsPanel extends JPanel {
     }
     public JLabel[][] getSkillSlots () {
         return skillSlots;
+    }
+    public JLabel[] getEquippedSkillSlots () {
+        return equippedSkillsSlots;
     }
 
     

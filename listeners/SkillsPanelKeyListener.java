@@ -18,11 +18,16 @@ public class SkillsPanelKeyListener implements KeyListener{
     private JLabel[][] skillSlots; 
     private int[][] intSlots;
 
+    private JLabel[] equipSlots;
+    private int currentEquipBox = 0;
+    private boolean isInEquipped = false;
+
     //keys
     private boolean left;
     private boolean right;
     private boolean up;
     private boolean down;
+    private boolean enter;
     private boolean esc;
 
     private int currentBoxRow = 0;
@@ -33,6 +38,8 @@ public class SkillsPanelKeyListener implements KeyListener{
         skillsPanel = mainFrame.getSkillsPanel();
         skillSlots = skillsPanel.getSkillSlots();
         intSlots = new int[skillsPanel.getGridRows()][skillsPanel.getGridColumns()];
+
+        equipSlots = skillsPanel.getEquippedSkillSlots();
 
         turnOnBox(currentBoxRow, currentBoxCol);
         skillsPanel.seeSkillDetails(currentBoxCol, currentBoxRow);
@@ -48,11 +55,26 @@ public class SkillsPanelKeyListener implements KeyListener{
         right = e.getKeyCode() == 39;
         up = e.getKeyCode() == 38;
         down = e.getKeyCode() == 40;
+        enter = e.getKeyCode() == 10;
         esc = e.getKeyCode() == 27;
+
+        if (up && currentBoxRow == 0) {
+            turnOnEquippedBox();
+        } else if (down && isInEquipped) {
+            isInEquipped = false;
+            turnOffEquippedSection();
+            currentBoxRow = -1;
+        } else if (right && isInEquipped && currentEquipBox != 3) {
+            currentEquipBox++;
+            turnOnEquippedBox();
+        } else if (left && isInEquipped && currentEquipBox != 0) {
+            currentEquipBox--;
+            turnOnEquippedBox();
+        }
 
         if (up && currentBoxRow != 0) {
             currentBoxRow -= 1;
-        } else if (down && currentBoxRow != skillsPanel.getGridRows()-1) {
+        } else if (down && currentBoxRow != skillsPanel.getGridRows()-1 ) {
             currentBoxRow += 1;
         } else if (left && currentBoxCol != 0) {
             currentBoxCol -= 1;
@@ -60,19 +82,53 @@ public class SkillsPanelKeyListener implements KeyListener{
             currentBoxCol += 1;
         }
 
+        if (enter) {
+
+            if (isInEquipped) {
+
+                mainFrame.getPlayer().unequipSkill(currentEquipBox);
+                skillsPanel.updateEquippedSkills();
+
+            } else if (!skillSlots[currentBoxRow][currentBoxCol].getText().equals("")) {
+                try {
+                    mainFrame.getPlayer().equipSkill(skillsPanel.getSkill(currentBoxCol, currentBoxRow));
+                    skillsPanel.updateEquippedSkills();
+                } catch (Exception ex) { }
+            }
+        }
+
         if (esc) {
             mainFrame.changeToHome();
             System.out.println("SkillsPanelKeyListener : esc");
         }
 
-        turnOnBox(currentBoxRow, currentBoxCol);
-        skillsPanel.seeSkillDetails(currentBoxCol, currentBoxRow);
+        if (!isInEquipped) {
+            turnOnBox(currentBoxRow, currentBoxCol);
+            skillsPanel.seeSkillDetails(currentBoxCol, currentBoxRow);
+        }
     }
 
     @Override
-    public void keyReleased(KeyEvent e) { }
+    public void keyReleased(KeyEvent e) {}
+
+    private void turnOnEquippedBox () {
+        //turn off all equip boxes
+        turnOffEquippedSection();
+
+        equipSlots[currentEquipBox].setBorder(BorderFactory.createLineBorder(Color.white,3));
+
+        turnOnBox(-1, 0);
+        isInEquipped = true;
+    }
+
+    private void turnOffEquippedSection () {
+        for (int slot = 0; slot < 4; slot++) {
+            equipSlots[slot].setBorder(BorderFactory.createLineBorder(Color.darkGray,3));
+        }
+    }
 
     private void turnOnBox (int boxRow, int boxCol) {
+
         //turn off all boxes
         for (int column = 0; column < skillsPanel.getGridColumns(); column++) {
             for(int row = 0; row < skillsPanel.getGridRows(); row++) {
@@ -81,8 +137,10 @@ public class SkillsPanelKeyListener implements KeyListener{
             }
         } 
 
-        //turn on selected box
-        intSlots[boxRow][boxCol] = 1;
-        skillSlots[boxRow][boxCol].setBorder(BorderFactory.createLineBorder(Color.white,3));
+        //turn on selected box, if -1 just turn off
+        if (boxRow != -1) {
+            intSlots[boxRow][boxCol] = 1;
+            skillSlots[boxRow][boxCol].setBorder(BorderFactory.createLineBorder(Color.white,3));
+        }
     }   
 }

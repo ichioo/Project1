@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import characters.*;
+import skills.Skill;
 
 public class FightPanel extends JPanel {
 
@@ -14,6 +15,11 @@ public class FightPanel extends JPanel {
     //player
     private JLabel playerNameLabel;
     private JProgressBar playerHpBar;
+
+    private JLabel skill1Label;
+    private JLabel skill2Label;
+    private JLabel skill3Label;
+    private JLabel skill4Label;
 
     //enemy
     private JLabel enemyNameLabel;
@@ -33,19 +39,19 @@ public class FightPanel extends JPanel {
         int skillLabelsStartX = 80;
         int skillLabelsY = 450;
 
-        JLabel skill1Label = new JLabel("");
+        skill1Label = new JLabel("");
         skill1Label.setBorder(BorderFactory.createLineBorder(Color.darkGray, 3));
         skill1Label.setBounds(skillLabelsStartX, skillLabelsY, skillLabelWidth, skillLabelHeight);
 
-        JLabel skill2Label = new JLabel("");
+        skill2Label = new JLabel("");
         skill2Label.setBorder(BorderFactory.createLineBorder(Color.darkGray, 3));
         skill2Label.setBounds(skill1Label.getX()+skill1Label.getWidth(), skillLabelsY, skillLabelWidth, skillLabelHeight);
 
-        JLabel skill3Label = new JLabel("");
+        skill3Label = new JLabel("");
         skill3Label.setBorder(BorderFactory.createLineBorder(Color.darkGray, 3));
         skill3Label.setBounds(skill2Label.getX()+skill2Label.getWidth(), skillLabelsY, skillLabelWidth, skillLabelHeight);
 
-        JLabel skill4Label = new JLabel("");
+        skill4Label = new JLabel("");
         skill4Label.setBorder(BorderFactory.createLineBorder(Color.darkGray, 3));
         skill4Label.setBounds(skill3Label.getX()+skill3Label.getWidth(), skillLabelsY, skillLabelWidth, skillLabelHeight);
 
@@ -111,6 +117,7 @@ public class FightPanel extends JPanel {
         playerHpBar.setValue(player.getHealth());
         //player
         playerNameLabel.setText(player.getName());
+        setPlayerSkills();
 
         //enemy hp bar
         enemyHpBar.setMaximum(enemy.getMaxHealth());
@@ -123,6 +130,29 @@ public class FightPanel extends JPanel {
     public void refreshHealthBars () {
         playerHpBar.setValue(player.getHealth());
         enemyHpBar.setValue(enemy.getHealth());
+    }
+
+    private void setPlayerSkills () {
+        Skill[] equippedSkills = player.getEquippedSkills();
+
+        skill1Label.setText("null");
+        skill2Label.setText("null");
+        skill3Label.setText("null");
+        skill4Label.setText("null");
+
+        if (equippedSkills[0] != null) {
+            skill1Label.setText(equippedSkills[0].toString());    
+        }
+        if (equippedSkills[1] != null) {
+            skill2Label.setText(equippedSkills[1].toString());    
+        }
+        if (equippedSkills[2] != null) {
+            skill3Label.setText(equippedSkills[2].toString());    
+        }
+        if (equippedSkills[3] != null) {
+            skill4Label.setText(equippedSkills[3].toString());    
+        }
+
     }
 
     //gets
