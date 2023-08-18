@@ -48,21 +48,34 @@ public class FightKeyListener implements KeyListener, Serializable{
             boolean skillDown = playerSkills[skillNumber].isDown();
             
                 if(!skillDown) {
-                    if (!player.isBlocking() && !player.isDodging()) {
+                    if (!player.isBlocking() && !player.isDodging() && player.canAttack() && !player.isStunned()) {
 
+                        castSkill(playerSkills[skillNumber].getCastTime());
                         enemy.getHit(playerSkills[skillNumber]);
                         playerSkills[skillNumber].putInDown();
                         System.out.println("FightKeyListener: skill used: " + playerSkills[skillNumber]);
                     } else {
 
-                        System.out.println("you're blocking/dodging");
+                        System.out.println("FightKeyListener: bloking/dodgeing/stunned/after dodge cooldown");
                     }
                 } else {
 
-                    System.out.println("skill down");
+                    System.out.println("FightKeyListener: skill down");
                 }
 
             }
+    }
+
+    private void castSkill (int castTime) {
+
+        for (int i=1; i<=castTime; i++) {
+
+            System.out.println("FightKeyListener: casting - " + i);
+            try {
+                Thread.sleep(999);
+            } catch (Exception e) { }
+
+        }
     }
 
     //-- 

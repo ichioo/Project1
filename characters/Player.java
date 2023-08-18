@@ -18,11 +18,12 @@ public class Player implements Serializable {
     private Skill[] allSkills;
 
     private boolean isBlocking = false;
-    private boolean isDodging = false;
-
-    private boolean canDodge = true;
     private boolean canBlock = true;
-    
+    private boolean isDodging = false;
+    private boolean canDodge = true;
+    private boolean canAttack = true;
+    private boolean isStunned = false;
+
     private PlayerActionsThread playerActionsThread;
 
     public Player (String name) {
@@ -34,7 +35,7 @@ public class Player implements Serializable {
     }
 
     public void block () {
-        if (!isBlocking && !isDodging) {
+        if (!isBlocking && !isDodging && canBlock) {
             playerActionsThread = new PlayerActionsThread(this, "blocking", mainFrame);
             playerActionsThread.start();
             playerActionsThread = null;
@@ -42,15 +43,26 @@ public class Player implements Serializable {
     }
 
     public void dodge () {
-        if (!isBlocking && !isDodging) {
+        if (!isBlocking && !isDodging && canDodge) {
             playerActionsThread = new PlayerActionsThread(this, "dodge", mainFrame);
             playerActionsThread.start();
             playerActionsThread = null;
         }
+
+        if (isStunned) {
+            System.out.println("stunned!");
+        }
+    }
+
+    private void getStunned () {
+        playerActionsThread = new PlayerActionsThread(this, "stun", mainFrame);
+        playerActionsThread.start();
+        playerActionsThread = null;
     }
 
     public void getHit (int damage) {
         health-=damage;
+        getStunned();
     }
 
     public void addSkill (Skill skill) {
@@ -136,6 +148,12 @@ public class Player implements Serializable {
     public boolean isDodging () {
         return isDodging;
     }
+    public boolean canAttack () {
+        return canAttack;
+    }
+    public boolean isStunned () {
+        return isStunned;
+    }
     //sets
     public void setMainFrame (MainFrame mainFrame) {
         this.mainFrame = mainFrame;
@@ -152,6 +170,12 @@ public class Player implements Serializable {
     }
     public void setCanDodge (boolean canDodge) {
         this.canDodge = canDodge;
+    }
+    public void setCanAttack (boolean canAttack) {
+        this.canAttack = canAttack;
+    }
+    public void setIsStunned (boolean isStunned) {
+        this.isStunned = isStunned;
     }
 
     //--

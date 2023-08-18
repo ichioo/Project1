@@ -72,6 +72,9 @@ public class TestEnemy extends Enemy implements Serializable{
             if (i == 0) {
                 attack(10);
             }
+            if (health <= 0) {
+                break;
+            }
 
             //--
             endTime = System.nanoTime();

@@ -23,6 +23,8 @@ public class PlayerActionsThread extends Thread implements Serializable{
             block();
         } else if (action.equals("dodge")) {
             dodge();
+        } else if (action.equals("stun")) {
+            stun();
         }
     }
 
@@ -46,7 +48,7 @@ public class PlayerActionsThread extends Thread implements Serializable{
 
     private void dodge () {
 
-        int durationDs = 7; //decaseconds
+        int durationDs = 5; //decaseconds
         player.setIsDodging(true);
 
         for (int i=durationDs; i>0; i--) {
@@ -60,5 +62,44 @@ public class PlayerActionsThread extends Thread implements Serializable{
 
         mainFrame.getFightPanel().getPlayerActionLabel().setText("dodging: 0");
         player.setIsDodging(false);
+
+        //can attack cooldown
+        player.setCanAttack(false);
+        player.setCanBlock(false);
+        player.setCanDodge(false);
+
+        mainFrame.getFightPanel().getPlayerActionLabel().setText(" __ ");
+        try {
+            Thread.sleep(499);
+        } catch (Exception e) { }
+        mainFrame.getFightPanel().getPlayerActionLabel().setText(" ^^ ");
+
+        player.setCanAttack(true);
+        player.setCanBlock(true);
+        player.setCanDodge(true);
+    }
+
+    private void stun () {
+
+        int durationDs = 9;    //decaseconds
+        player.setIsStunned(true);
+        player.setCanAttack(false);
+        player.setCanBlock(false);
+        player.setCanDodge(false);
+
+        for (int i=durationDs; i>0; i--) {
+
+            mainFrame.getFightPanel().getPlayerActionLabel().setText("stunned: " + ((float) i/10));
+
+            try {
+                Thread.sleep(99);
+            } catch (Exception e) { }
+        } 
+
+        mainFrame.getFightPanel().getPlayerActionLabel().setText("stunned: 0");
+        player.setIsStunned(false);
+        player.setCanAttack(true);
+        player.setCanBlock(true);
+        player.setCanDodge(true);
     }
 }

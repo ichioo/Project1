@@ -9,9 +9,14 @@ public class Skill implements Serializable{
     private String name = "Skill";
     private int damage;
     private int cooldown;
+    private int castTime;
+
     private boolean isDown = false;
-    
+
     private CooldownThread cooldownThread;
+    
+    //--
+    public void putInDown () { }
 
     //gets
     public int getDamage () {
@@ -23,11 +28,11 @@ public class Skill implements Serializable{
     public boolean isDown () {
         return isDown;
     }
+    public int getCastTime () {
+        return castTime;
+    }
     //sets
-    public void setIsDown (boolean isDown) { }   
-
-    //--
-    public void putInDown () { }
+    public void setIsDown (boolean isDown) { }
 
     //--
     public String toString () {
