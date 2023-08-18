@@ -2,10 +2,10 @@ package listeners;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
+import java.io.Serializable;
 import frames.MainFrame;
 
-public class StatsKeyListener implements KeyListener {
+public class StatsKeyListener implements KeyListener, Serializable {
 
     private MainFrame mainFrame;
 

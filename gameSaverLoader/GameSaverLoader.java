@@ -4,7 +4,7 @@ import java.io.*;
 import javax.swing.JFileChooser;
 import characters.Player;
 
-public class GameSaverLoader {
+public class GameSaverLoader implements Serializable{
 
     public Player load () {
 
@@ -34,7 +34,7 @@ public class GameSaverLoader {
             return loadedPlayer;
         } catch (Exception e) {
             
-            System.out.println("GameSaverLoader, load: error - " + e.getMessage());
+            System.out.println("GameSaverLoader, load: " + e);
         }
 
         return null;
@@ -57,7 +57,7 @@ public class GameSaverLoader {
             return 0;
         } catch (Exception e) {
 
-            System.out.println("GameSaverLoader, save: error - " + e.getMessage());
+            System.out.println("GameSaverLoader, save: " + e);
         }
 
         return 1;

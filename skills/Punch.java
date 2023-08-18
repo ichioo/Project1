@@ -5,11 +5,11 @@ import gameThreads.CooldownThread;
 public class Punch extends Skill{
     
     private String name = "punch";
-    private int damage = 2;
+    private int damage = 10;
     private int cooldown = 2;
     private boolean isDown = false;
 
-    private CooldownThread cooldownThread = new CooldownThread(this);
+    private CooldownThread cooldownThread;
 
     //gets
     public int getDamage () {
@@ -28,8 +28,9 @@ public class Punch extends Skill{
 
     //--
     public void putInDown () {
-        cooldownThread.start();
         cooldownThread = new CooldownThread(this);
+        cooldownThread.start();
+        cooldownThread = null;
     }
 
     //--

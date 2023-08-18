@@ -8,7 +8,7 @@ import characters.Player;
 import frames.MainFrame;
 import gameSaverLoader.GameSaverLoader;
 
-public class StartKeyListener implements KeyListener {
+public class StartKeyListener implements KeyListener{
 
     private MainFrame mainFrame;
     private JLabel newGameLabel;

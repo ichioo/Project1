@@ -2,11 +2,10 @@ package gamePanels;
 
 import java.awt.*;
 import javax.swing.*;
-
 import characters.*;
 import skills.Skill;
 
-public class FightPanel extends JPanel {
+public class FightPanel extends JPanel{
 
     //characters
     private Player player;
@@ -15,6 +14,7 @@ public class FightPanel extends JPanel {
     //player
     private JLabel playerNameLabel;
     private JProgressBar playerHpBar;
+    private JLabel playerActionLabel;
 
     private JLabel skill1Label;
     private JLabel skill2Label;
@@ -67,6 +67,11 @@ public class FightPanel extends JPanel {
         playerNameLabel.setBounds(playerHpBar.getX() + playerHpBar.getWidth() + 10, playerHpBar.getY(), 150 , playerHpBar.getHeight());
         playerNameLabel.setFont(gameFont.deriveFont(20f));
 
+        playerActionLabel = new JLabel("action");
+        playerActionLabel.setBounds(225, 400, 150 , 50);
+        playerActionLabel.setHorizontalAlignment(JLabel.CENTER);
+        playerActionLabel.setFont(gameFont.deriveFont(20f));
+
         //enemy 
         JLabel enemyImageLabel = new JLabel("enemy");
         enemyImageLabel.setBorder(BorderFactory.createLineBorder(Color.darkGray, 3));
@@ -84,8 +89,7 @@ public class FightPanel extends JPanel {
         enemyNameLabel.setFont(gameFont.deriveFont(20f));
 
         enemyActionLabel = new JLabel("mons action");
-        enemyActionLabel.setBorder(BorderFactory.createLineBorder(Color.darkGray, 3));
-        enemyActionLabel.setBounds(100, 350, 400, 80);
+        enemyActionLabel.setBounds(100, 345, 400, 80);
         enemyActionLabel.setFont(gameFont.deriveFont(40f));
         enemyActionLabel.setHorizontalAlignment(JLabel.CENTER);
 
@@ -100,6 +104,7 @@ public class FightPanel extends JPanel {
         //player stuff
         add(playerHpBar);
         add(playerNameLabel);
+        add(playerActionLabel);
 
         //enemy stuff
         add(enemyImageLabel);
@@ -164,6 +169,9 @@ public class FightPanel extends JPanel {
     }
     public JLabel getEnemyActionLabel () {
         return enemyActionLabel;
+    }
+    public JLabel getPlayerActionLabel () {
+        return playerActionLabel;
     }
 
 

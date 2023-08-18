@@ -1,9 +1,11 @@
 package characters;
 
+import java.io.Serializable;
+
 import javax.swing.JLabel;
 import skills.Skill;
 
-public class TestEnemy extends Enemy {
+public class TestEnemy extends Enemy implements Serializable{
     //enemy stats
     private String name = "test enemy";
     private int maxHealth;
@@ -13,6 +15,8 @@ public class TestEnemy extends Enemy {
     private boolean isDefending = false;
     private boolean isAttacking = false;
     private boolean isWaiting = false;
+
+    private Player player;
      
     //--
     private JLabel enemyActionLabel;
@@ -29,20 +33,45 @@ public class TestEnemy extends Enemy {
     
 
     //actions
-    public void startActions () {
-        action1();
+    public void startActions (Player player) {
+        this.player = player;
+
+        while (health > 0) {
+
+            action1(player);
+        }
     }
 
-    private void action1 () {
+    private void attack (int damage) {
         
+        if (!player.isBlocking() && !player.isDodging()) {
+            player.getHit(damage);
+            enemyActionLabel.setText("attack");
+
+        } else if (player.isBlocking()) {
+            player.getHit(damage / 2);
+            enemyActionLabel.setText("player blocked");
+
+        } else if (player.isDodging()) {
+
+            enemyActionLabel.setText("player dodged");
+        }
+    }
+
+    private void action1 (Player player) {
+        int duration = 5;
         long startTime;
         long endTime;
 
-        for (int i=0; i<=40; i++) {
+        for (int i=duration; i>=0; i--) {
             startTime = System.nanoTime();
             //--
 
             enemyActionLabel.setText(Integer.toString(i));
+
+            if (i == 0) {
+                attack(10);
+            }
 
             //--
             endTime = System.nanoTime();

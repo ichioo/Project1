@@ -49,7 +49,10 @@ public class NameInKeyListener implements KeyListener {
         if(isEnterKey) {
             playerName = nameInsertLabel.getText().substring(17);
             Player player = new Player(playerName);
-            player.addSkill(new Punch(), 0);
+            player.setMainFrame(mainFrame);
+
+            //skill adding (temp)
+            player.addSkill(new Punch());
 
             mainFrame.setPlayer(player);
             mainFrame.changeToHome();

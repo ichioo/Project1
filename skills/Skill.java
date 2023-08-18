@@ -6,7 +6,7 @@ import gameThreads.CooldownThread;
 
 public class Skill implements Serializable{
     
-    private String name = "Skill par";
+    private String name = "Skill";
     private int damage;
     private int cooldown;
     private boolean isDown = false;
@@ -24,9 +24,7 @@ public class Skill implements Serializable{
         return isDown;
     }
     //sets
-    public void setIsDown (boolean isDown) {
-        
-    }   
+    public void setIsDown (boolean isDown) { }   
 
     //--
     public void putInDown () { }

@@ -5,7 +5,7 @@ import skills.Skill;
 
 public class Enemy {
     //enemy stats
-    private String name = "Enemy par";
+    private String name = "Enemy";
     private int maxHealth;
     private int health;
 
@@ -22,7 +22,7 @@ public class Enemy {
     public void getHit (Skill attack) { }
     
     //actions
-    public void startActions () { }
+    public void startActions (Player player) { }
 
     //gets
     public String getName () {

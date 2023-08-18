@@ -1,9 +1,10 @@
 package gameThreads;
 
+import java.io.Serializable;
 import characters.Enemy;
 import gamePanels.FightPanel;
 
-public class FightThread extends Thread {
+public class FightThread extends Thread implements Serializable{
 
     private FightPanel fightPanel;
     private Enemy enemy;
@@ -25,7 +26,8 @@ public class FightThread extends Thread {
         healthUpdaterThread.start();
 
         enemy.setFightPanel(fightPanel.getEnemyActionLabel());
-        enemy.startActions();
+        enemy.startActions(fightPanel.getPlayer());
     }
+    
 
 }

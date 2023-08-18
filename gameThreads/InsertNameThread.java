@@ -1,8 +1,9 @@
 package gameThreads;
 
+import java.io.Serializable;
 import frames.MainFrame;
 
-public class InsertNameThread extends Thread{
+public class InsertNameThread extends Thread implements Serializable{
 
     private MainFrame mainFrame;
 

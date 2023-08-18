@@ -41,6 +41,7 @@ public class SkillsPanel extends JPanel {
         int ySpace = 5;
         int xSpace = 5;
 
+        // -- all skill labels 
         for (int column = 1; column <= columns; column++) {            
             for (int row = 1; row <= rows; row ++) {
                 skillSlots[row-1][column-1] = new JLabel();
@@ -94,7 +95,7 @@ public class SkillsPanel extends JPanel {
         skillCooldownLabel.setHorizontalAlignment(JLabel.CENTER);
         skillCooldownLabel.setBounds(375, skillDamageLabel.getY() + skillDamageLabel.getHeight() +ySpace, 210, 50);
 
-        //add components
+        // -- -add skill detail components
         add(skillNameLabel);
         add(skillImgLabel);
         add(skillDamageLabel);
@@ -129,15 +130,16 @@ public class SkillsPanel extends JPanel {
 
         Skill[] equippedSkills = player.getEquippedSkills();
 
+        //turns all equipped section off
         for (JLabel equippedSkillSlot : equippedSkillsSlots) {
             equippedSkillSlot.setText("");
         }
 
+        //tries to put equipped skills in labels, try-catch because some can be null
         try {
-            equippedSkillsSlots[0].setText(equippedSkills[0].toString());
-            equippedSkillsSlots[1].setText(equippedSkills[1].toString());
-            equippedSkillsSlots[2].setText(equippedSkills[2].toString());
-            equippedSkillsSlots[3].setText(equippedSkills[3].toString());
+            for (int i=0; i<4; i++) {
+                equippedSkillsSlots[i].setText(equippedSkills[i].toString());
+            }
         } catch (Exception e) { }
     }
 

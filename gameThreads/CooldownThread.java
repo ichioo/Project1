@@ -17,7 +17,6 @@ public class CooldownThread extends Thread implements Serializable{
     }
 
     private void skillDown () {
-        
         skill.setIsDown(true);
 
         int i = skill.getCooldown();

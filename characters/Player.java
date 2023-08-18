@@ -2,16 +2,28 @@ package characters;
 
 import java.io.Serializable;
 
+import frames.MainFrame;
+import gameThreads.PlayerActionsThread;
 import skills.*;
 
 public class Player implements Serializable {
-    
+    private MainFrame mainFrame;
+
+    //player attributes
     private String name;
     private int maxHealth;
     private int health;
 
     private Skill[] equippedSkills;
     private Skill[] allSkills;
+
+    private boolean isBlocking = false;
+    private boolean isDodging = false;
+
+    private boolean canDodge = true;
+    private boolean canBlock = true;
+    
+    private PlayerActionsThread playerActionsThread;
 
     public Player (String name) {
         this.name = name;
@@ -21,7 +33,27 @@ public class Player implements Serializable {
         allSkills = new Skill[5];
     }
 
-    public void addSkill (Skill skill, int slot) {
+    public void block () {
+        if (!isBlocking && !isDodging) {
+            playerActionsThread = new PlayerActionsThread(this, "blocking", mainFrame);
+            playerActionsThread.start();
+            playerActionsThread = null;
+        }
+    }
+
+    public void dodge () {
+        if (!isBlocking && !isDodging) {
+            playerActionsThread = new PlayerActionsThread(this, "dodge", mainFrame);
+            playerActionsThread.start();
+            playerActionsThread = null;
+        }
+    }
+
+    public void getHit (int damage) {
+        health-=damage;
+    }
+
+    public void addSkill (Skill skill) {
         //add to allSkills
         int counter = 0;
         boolean addedInAll = false;
@@ -31,7 +63,7 @@ public class Player implements Serializable {
             if (allSkills[counter] == null) {
                 allSkills[counter] = skill;
                 addedInAll = true;
-                System.out.println("Player: " + skill + " addeto to allSkills");
+                System.out.println("Player: " + skill + " added to to allSkills");
             } else {
                 counter++;
             }
@@ -58,7 +90,6 @@ public class Player implements Serializable {
                 System.out.println("Player: skill equipped");
                 return 0;
             }
-
         }
 
         System.out.println("Player: slots are full");
@@ -83,12 +114,46 @@ public class Player implements Serializable {
     public int getHealth () {
         return health;
     }
+    public MainFrame getMainFrame () {
+        return mainFrame;
+    }
     public Skill[] getEquippedSkills () {
         return equippedSkills;
     }
     public Skill[] getAllSkills () {
         return allSkills;
     }
+    // -- actions
+    public boolean isBlocking () {
+        return isBlocking;
+    }
+    public boolean canBlock () {
+        return canBlock;
+    }
+    public boolean canDodge () {
+        return canDodge;
+    }
+    public boolean isDodging () {
+        return isDodging;
+    }
+    //sets
+    public void setMainFrame (MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
+    }
+    // -- actions
+    public void setIsBlocking (boolean isBlocking) {
+        this.isBlocking = isBlocking;
+    }
+    public void setCanBlock (boolean canBlock) {
+        this.canBlock = canBlock;
+    }
+    public void setIsDodging (boolean isDodging) {
+        this.isDodging = isDodging;
+    }
+    public void setCanDodge (boolean canDodge) {
+        this.canDodge = canDodge;
+    }
+
     //--
     public String toString () {
         return name;
