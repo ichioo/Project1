@@ -1,8 +1,9 @@
 package skills;
 
 import java.io.Serializable;
-
-import gameThreads.CooldownThread;
+import characters.Enemy;
+import characters.Player;
+import gameThreads.SkillThread;
 
 public class Skill implements Serializable{
     
@@ -11,12 +12,16 @@ public class Skill implements Serializable{
     private int cooldown;
     private int castTime;
 
+    private boolean isCasting = false;
     private boolean isDown = false;
+    private Enemy enemy;
 
-    private CooldownThread cooldownThread;
+    private Player player;
+    private SkillThread skillThread;
     
     //--
     public void putInDown () { }
+    public void cast () { }
 
     //gets
     public int getDamage () {
@@ -31,8 +36,23 @@ public class Skill implements Serializable{
     public int getCastTime () {
         return castTime;
     }
+    public boolean isCasting () {
+        return isCasting;
+    }
+    public SkillThread getSkillThread () {
+        return skillThread;
+    }
+    public Enemy getEnemy () {
+        return enemy;
+    }
+    public Player getPlayer () {
+        return player;
+    }
     //sets
     public void setIsDown (boolean isDown) { }
+    public void setIsCasting (boolean isCasting) { }
+    public void setEnemy (Enemy enemy) { }
+    public void setPlayer (Player player) { }
 
     //--
     public String toString () {

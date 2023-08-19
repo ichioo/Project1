@@ -48,7 +48,7 @@ public class SkillsPanel extends JPanel {
                 skillSlots[row-1][column-1].setBorder(BorderFactory.createLineBorder(Color.darkGray,3));
                 skillSlots[row-1][column-1].setForeground(Color.white);
 
-                //idk how to explaing, basiclly inserts all the labels
+                //idk how to explain, basiclly inserts all the labels
                 if (row == 1 && column == 1) {
                     skillSlots[row-1][column-1].setBounds(startX, startY, width, height);
                 } else if (row == 1) {

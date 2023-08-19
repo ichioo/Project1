@@ -5,7 +5,7 @@ import java.io.Serializable;
 import characters.*;
 import skills.Skill;
 
-public class FightKeyListener implements KeyListener, Serializable{
+public class FightKeyListener implements KeyListener, Serializable {
 
     private Player player;
     private Enemy enemy;
@@ -47,35 +47,37 @@ public class FightKeyListener implements KeyListener, Serializable{
         if(skillAvalible) {
             boolean skillDown = playerSkills[skillNumber].isDown();
             
-                if(!skillDown) {
-                    if (!player.isBlocking() && !player.isDodging() && player.canAttack() && !player.isStunned()) {
+            if(!skillDown && !areSkillsCasting()) {
+                if (!player.isBlocking() && !player.isDodging() && player.canAttack() && !player.isStunned()) {
 
-                        castSkill(playerSkills[skillNumber].getCastTime());
-                        enemy.getHit(playerSkills[skillNumber]);
-                        playerSkills[skillNumber].putInDown();
-                        System.out.println("FightKeyListener: skill used: " + playerSkills[skillNumber]);
-                    } else {
 
-                        System.out.println("FightKeyListener: bloking/dodgeing/stunned/after dodge cooldown");
-                    }
+                    playerSkills[skillNumber].setEnemy(enemy);
+                    playerSkills[skillNumber].cast();
+
                 } else {
 
-                    System.out.println("FightKeyListener: skill down");
+                    System.out.println("FightKeyListener: bloking/dodgeing/stunned/after dodge cooldown");
                 }
-
+            } else {
+                System.out.println("FightKeyListener: skill down/skill casting");
             }
-    }
-
-    private void castSkill (int castTime) {
-
-        for (int i=1; i<=castTime; i++) {
-
-            System.out.println("FightKeyListener: casting - " + i);
-            try {
-                Thread.sleep(999);
-            } catch (Exception e) { }
 
         }
+        
+    }
+
+    private boolean areSkillsCasting () {
+
+        for (Skill skill : playerSkills) {
+
+            try {
+                if (skill.isCasting()) {
+                    return true;
+                }
+            } catch (Exception e) { }
+        }
+
+        return false;
     }
 
     //-- 

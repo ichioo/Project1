@@ -31,8 +31,6 @@ public class TestEnemy extends Enemy implements Serializable{
         health -= attack.getDamage();
     }
     
-
-    //actions
     public void startActions (Player player) {
         this.player = player;
 
@@ -58,6 +56,7 @@ public class TestEnemy extends Enemy implements Serializable{
         }
     }
 
+    //actions
     private void action1 (Player player) {
         int duration = 5;
         long startTime;

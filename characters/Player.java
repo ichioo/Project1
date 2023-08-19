@@ -34,6 +34,12 @@ public class Player implements Serializable {
         allSkills = new Skill[5];
     }
 
+    // -- 
+    public void getHit (int damage) {
+        health-=damage;
+        getStunned();
+    }
+
     public void block () {
         if (!isBlocking && !isDodging && canBlock) {
             playerActionsThread = new PlayerActionsThread(this, "blocking", mainFrame);
@@ -49,20 +55,12 @@ public class Player implements Serializable {
             playerActionsThread = null;
         }
 
-        if (isStunned) {
-            System.out.println("stunned!");
-        }
     }
 
     private void getStunned () {
         playerActionsThread = new PlayerActionsThread(this, "stun", mainFrame);
         playerActionsThread.start();
         playerActionsThread = null;
-    }
-
-    public void getHit (int damage) {
-        health-=damage;
-        getStunned();
     }
 
     public void addSkill (Skill skill) {
@@ -73,6 +71,7 @@ public class Player implements Serializable {
         while (!addedInAll) {
 
             if (allSkills[counter] == null) {
+                skill.setPlayer(this);
                 allSkills[counter] = skill;
                 addedInAll = true;
                 System.out.println("Player: " + skill + " added to to allSkills");
