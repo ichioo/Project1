@@ -1,6 +1,7 @@
 package gameThreads;
 
 import java.io.Serializable;
+
 import skills.Skill;
 
 public class SkillThread extends Thread implements Serializable{
@@ -29,6 +30,7 @@ public class SkillThread extends Thread implements Serializable{
         int i = skill.getCooldown();
         boolean inDownTime = i != 0;
 
+        System.out.println("SkillThread: cooldown...");
         while (inDownTime) {
             i--;
 
@@ -49,10 +51,13 @@ public class SkillThread extends Thread implements Serializable{
 
         skill.setIsCasting(true);
         skill.getPlayer().setCanAttack(false);
+        skill.getPlayer().setCanBlock(false);
+        skill.getPlayer().setCanDodge(false);
 
         int i = skill.getCastTime();
         boolean inCasting = i != 0;
 
+        System.out.println("SkillThread: casting...");
         while (inCasting) {
             i--;
 
@@ -67,6 +72,8 @@ public class SkillThread extends Thread implements Serializable{
 
         skill.setIsCasting(false);
         skill.getPlayer().setCanAttack(true);
+        skill.getPlayer().setCanBlock(true);
+        skill.getPlayer().setCanDodge(true);
 
         skill.getEnemy().getHit(skill);
         System.out.println("SkillThread: " + skill + " used");

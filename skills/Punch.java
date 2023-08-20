@@ -9,7 +9,7 @@ public class Punch extends Skill{
     private String name = "punch";
     private int damage = 10;
     private int cooldown = 2;
-    private int castTime = 3;
+    private int castTime = 1;
 
     private boolean isCasting = false;
     private boolean isDown = false;

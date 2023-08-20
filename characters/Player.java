@@ -9,14 +9,22 @@ import skills.*;
 public class Player implements Serializable {
     private MainFrame mainFrame;
 
-    //player attributes
+    //player stats
     private String name;
+    private int level;
+    private int xp;
+    private int xpToNextLvl;
+    private int points;
     private int maxHealth;
     private int health;
 
+    private int maxHpLevel = 1;
+
+    //player skills
     private Skill[] equippedSkills;
     private Skill[] allSkills;
 
+    //other
     private boolean isBlocking = false;
     private boolean canBlock = true;
     private boolean isDodging = false;
@@ -30,6 +38,11 @@ public class Player implements Serializable {
         this.name = name;
         maxHealth = 100;
         health = maxHealth;
+        level = 1;
+        xp = 0;
+        xpToNextLvl = 200;
+        points = 0;
+
         equippedSkills = new Skill[4];
         allSkills = new Skill[5];
     }
@@ -115,9 +128,28 @@ public class Player implements Serializable {
         }
     }
 
+    //upgrade stats
+    public void upMaxHp () {
+        points--;
+        maxHealth += maxHpLevel + 10;
+        maxHpLevel++;
+    }
+
     //gets
     public String getName () {
         return name;
+    }
+    public int getLevel () {
+        return level;
+    }
+    public int getXp () {
+        return xp;
+    }
+    public int getXpToNextLvl () {
+        return xpToNextLvl;
+    }
+    public int getPoints () {
+        return points;
     }
     public int getMaxHealth () {
         return maxHealth;
@@ -125,9 +157,10 @@ public class Player implements Serializable {
     public int getHealth () {
         return health;
     }
-    public MainFrame getMainFrame () {
-        return mainFrame;
+    public int getMaxHpLvl () {
+        return maxHpLevel;
     }
+
     public Skill[] getEquippedSkills () {
         return equippedSkills;
     }

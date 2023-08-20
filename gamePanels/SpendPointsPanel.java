@@ -4,7 +4,7 @@ import javax.swing.*;
 import characters.Player;
 import java.awt.*;
 
-public class StatsPanel extends JPanel {
+public class SpendPointsPanel extends JPanel {
 
     private JLabel nameLabel;
     private JLabel levelLabel;
@@ -16,7 +16,7 @@ public class StatsPanel extends JPanel {
 
     private Player player;
 
-    public StatsPanel (Font gameFont, Player player) {
+    public SpendPointsPanel (Font gameFont, Player player) {
         this.player = player;
 
         //--
@@ -94,14 +94,24 @@ public class StatsPanel extends JPanel {
         levelLabel.setText("level: " + player.getLevel());
         xpLabel.setText("xp: " + player.getXp() + "/" + player.getXpToNextLvl());
         pointsLabel.setText("points: " + player.getPoints());
-        maxHealthLabel.setText("max health: " + player.getMaxHealth());
-
-        if (player.getPoints() > 0) {
-            sepndPointsLabel.setForeground(Color.yellow);
-        }
+        maxHealthLabel.setText("max health : " + player.getMaxHealth());
     }
 
-    public JLabel getSpendPointsLabel () {
-        return sepndPointsLabel;
+    public void updatePointsLabel () {
+        pointsLabel.setText("points: " + player.getPoints());
     }
+
+    public JLabel[] getAllLabels () {
+
+        JLabel[] allLabels = new JLabel[1];
+
+        allLabels[0] = maxHealthLabel;
+
+        return allLabels;
+    }
+
+    public void setHpUpText () {
+        maxHealthLabel.setText("max health : " + player.getMaxHealth() + " + " + (player.getMaxHpLvl() + 10));
+    }
+
 }

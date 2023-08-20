@@ -19,6 +19,7 @@ public class SkillsPanel extends JPanel {
     private JLabel skillImgLabel;
     private JLabel skillDamageLabel;
     private JLabel skillCooldownLabel;
+    private JLabel skillCastTimeLabel;
 
     //equipped skills
     private JLabel[] equippedSkillsSlots;
@@ -95,11 +96,19 @@ public class SkillsPanel extends JPanel {
         skillCooldownLabel.setHorizontalAlignment(JLabel.CENTER);
         skillCooldownLabel.setBounds(375, skillDamageLabel.getY() + skillDamageLabel.getHeight() +ySpace, 210, 50);
 
+        skillCastTimeLabel = new JLabel();
+        skillCastTimeLabel.setBorder(BorderFactory.createLineBorder(Color.darkGray,3));
+        skillCastTimeLabel.setForeground(Color.white);
+        skillCastTimeLabel.setFont(gameFont);
+        skillCastTimeLabel.setHorizontalAlignment(JLabel.CENTER);
+        skillCastTimeLabel.setBounds(375, skillCooldownLabel.getY() + skillCooldownLabel.getHeight() +ySpace, 210, 50);
+
         // -- -add skill detail components
         add(skillNameLabel);
         add(skillImgLabel);
         add(skillDamageLabel);
         add(skillCooldownLabel);
+        add(skillCastTimeLabel);
 
         // -- equipped skills
         equippedSkillsSlots = new JLabel[4];
@@ -186,10 +195,12 @@ public class SkillsPanel extends JPanel {
             skillNameLabel.setText("");
             skillDamageLabel.setText("damage: ");
             skillCooldownLabel.setText("cooldown: ");
+            skillCastTimeLabel.setText("cast time: ");
         } else {
             skillNameLabel.setText(skill.toString());
             skillDamageLabel.setText("damage: " + skill.getDamage());
             skillCooldownLabel.setText("cooldown: " + skill.getCooldown());
+            skillCastTimeLabel.setText("cast time: " + skill.getCastTime());
         }
     }
 

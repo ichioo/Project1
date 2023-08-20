@@ -26,6 +26,7 @@ public class MainFrame extends JFrame {
     private FightPanel fightPanel;
     private SkillsPanel skillsPanel;
     private StatsPanel statsPanel;
+    private SpendPointsPanel spendPointsPanel;
 
     //-
     private Thread thread;
@@ -142,6 +143,16 @@ public class MainFrame extends JFrame {
         addKeyListener(statsKeyListener);
     }
 
+    public void changeToSpendPoints () {
+        //changes the panel
+        removeCurrentPanel();
+        spendPointsPanel = new SpendPointsPanel(gameFont, player);
+        getContentPane().add(spendPointsPanel);
+        validate();
+        repaint();
+
+    }
+
     //--
     public void createFont () {
         try { 
@@ -179,6 +190,10 @@ public class MainFrame extends JFrame {
         if(statsPanel != null) {
             remove(statsPanel);
             statsPanel = null;
+        }
+        if(spendPointsPanel != null) {
+            remove(spendPointsPanel);
+            spendPointsPanel = null;
         }
         
     }
@@ -239,6 +254,12 @@ public class MainFrame extends JFrame {
     }
     public SkillsPanel getSkillsPanel () {
         return skillsPanel;
+    }
+    public StatsPanel getStatsPanel () {
+        return statsPanel;
+    }
+    public SpendPointsPanel getSpendPointsPanel () {
+        return spendPointsPanel;
     }
     // --
     public GameSaverLoader getGameSaverLoader () {
