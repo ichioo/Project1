@@ -3,13 +3,12 @@ package listeners;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
+import java.io.Serializable;
 import javax.swing.JLabel;
-
 import characters.*;
 import frames.MainFrame;
 
-public class HomeKeyListener implements KeyListener{
+public class HomeKeyListener implements KeyListener, Serializable{
 
     private MainFrame mainFrame;
     private int[] selectBoxes = new int[3];

@@ -50,7 +50,9 @@ public class Player implements Serializable {
     // -- 
     public void getHit (int damage) {
         health-=damage;
-        getStunned();
+        if (!isBlocking) {
+            getStunned();
+        }
     }
 
     public void block () {
@@ -133,6 +135,26 @@ public class Player implements Serializable {
         points--;
         maxHealth += maxHpLevel + 10;
         maxHpLevel++;
+    }
+    public void gainXp (int xp) {
+        
+        if (this.xp + xp > xpToNextLvl) {
+            
+            this.xp = (this.xp + xp) - xpToNextLvl;
+            levelUp();
+        } else if (this.xp + xp == xpToNextLvl) {
+
+            this.xp = 0;
+            levelUp();
+        } else if (this.xp + xp < xpToNextLvl) {
+
+            this.xp += xp;
+        }
+
+    }
+    private void levelUp () {
+        level += 1;
+        points += 1;
     }
 
     //gets

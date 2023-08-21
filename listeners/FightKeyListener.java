@@ -3,13 +3,22 @@ package listeners;
 import java.awt.event.*;
 import java.io.Serializable;
 import characters.*;
+import frames.MainFrame;
 import skills.Skill;
 
 public class FightKeyListener implements KeyListener, Serializable {
 
+    private MainFrame mainFrame;
     private Player player;
     private Enemy enemy;
     private Skill[] playerSkills;
+
+    //keys
+    private boolean enter;
+
+    public FightKeyListener (MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
+    }
 
     @Override
     public void keyTyped(KeyEvent e) { }
@@ -19,6 +28,7 @@ public class FightKeyListener implements KeyListener, Serializable {
     
     @Override
     public void keyReleased(KeyEvent e) {
+        enter = e.getKeyCode() == 10;
 
         if (e.getKeyChar() == '1') {
             activateSkill(0);
@@ -38,6 +48,11 @@ public class FightKeyListener implements KeyListener, Serializable {
         }
         if (e.getKeyChar() == 'd') {
             player.dodge();
+        }
+
+        if (enter && enemy.getHealth() <= 0) {
+            System.out.println("FightKeyListener: enter");
+            mainFrame.changeToHome();
         }
     }
 

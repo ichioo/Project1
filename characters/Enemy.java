@@ -8,6 +8,7 @@ public class Enemy {
     private String name = "Enemy";
     private int maxHealth;
     private int health;
+    private int xp;
 
     //actions
     private boolean isDefending = false;
@@ -33,6 +34,9 @@ public class Enemy {
     }
     public int getHealth () {
         return health;
+    }
+    public int getXp () {
+        return xp;
     }
     public boolean getIsDefending () {
         return isDefending;

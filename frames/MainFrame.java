@@ -27,6 +27,7 @@ public class MainFrame extends JFrame {
     private SkillsPanel skillsPanel;
     private StatsPanel statsPanel;
     private SpendPointsPanel spendPointsPanel;
+    private RewardsPanel rewardsPanel;
 
     //-
     private Thread thread;
@@ -104,12 +105,12 @@ public class MainFrame extends JFrame {
 
         //changes the keylistener
         removeCurrentKeyListener();
-        fightKeyListener = new FightKeyListener();
+        fightKeyListener = new FightKeyListener(this);
         addKeyListener(fightKeyListener);
 
         //changes thread
         thread = new FightThread();
-        ((FightThread) thread).addFightPanel(fightPanel);
+        ((FightThread) thread).addMainFrame(this);
         thread.start();
         
     }
@@ -150,7 +151,19 @@ public class MainFrame extends JFrame {
         getContentPane().add(spendPointsPanel);
         validate();
         repaint();
+    }
 
+    public void changeToRewards () {
+        Enemy enemy = fightPanel.getEnemy();
+
+        //changes the panel
+        removeCurrentPanel();
+        rewardsPanel = new RewardsPanel(gameFont, enemy);
+        getContentPane().add(rewardsPanel);
+        validate();
+        repaint();
+
+        enemy = null;
     }
 
     //--
@@ -167,33 +180,37 @@ public class MainFrame extends JFrame {
     
     private void removeCurrentPanel () {
         //some panels are set to null because they are viewed only 1 time
-        if(startPanel != null) {
+        if (startPanel != null) {
             remove(startPanel);
             startPanel = null;
         }
-        if(nameInPanel != null) {
+        if (nameInPanel != null) {
             remove(nameInPanel);
             nameInPanel = null;
         }
-        if(fightPanel != null) {
+        if (fightPanel != null ) {
             remove(fightPanel);
             fightPanel = null;
         }
-        if(homePanel != null) {
+        if (homePanel != null) {
             remove(homePanel);
             homePanel = null;
         }
-        if(skillsPanel != null) {
+        if (skillsPanel != null) {
             remove(skillsPanel);
             skillsPanel = null;
         } 
-        if(statsPanel != null) {
+        if (statsPanel != null) {
             remove(statsPanel);
             statsPanel = null;
         }
-        if(spendPointsPanel != null) {
+        if (spendPointsPanel != null) {
             remove(spendPointsPanel);
             spendPointsPanel = null;
+        }
+        if (rewardsPanel != null) {
+            remove(rewardsPanel);
+            rewardsPanel = null;
         }
         
     }

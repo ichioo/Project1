@@ -80,6 +80,7 @@ public class StartKeyListener implements KeyListener{
                 if (playerLoaded) {
 
                     mainFrame.setPlayer(loadedPlayer);
+                    loadedPlayer.setMainFrame(mainFrame);
                     System.out.println("Player loaded");
                     mainFrame.changeToHome();
                 } else {

@@ -70,7 +70,7 @@ public class PlayerActionsThread extends Thread implements Serializable{
 
         mainFrame.getFightPanel().getPlayerActionLabel().setText(" __ ");
         try {
-            Thread.sleep(499);
+            Thread.sleep(299);
         } catch (Exception e) { }
         mainFrame.getFightPanel().getPlayerActionLabel().setText(" ^^ ");
 

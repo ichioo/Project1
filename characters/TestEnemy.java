@@ -10,6 +10,7 @@ public class TestEnemy extends Enemy implements Serializable{
     private String name = "test enemy";
     private int maxHealth;
     private int health;
+    private int xp;
 
     //actions
     private boolean isDefending = false;
@@ -22,8 +23,9 @@ public class TestEnemy extends Enemy implements Serializable{
     private JLabel enemyActionLabel;
 
     public TestEnemy () {
-        maxHealth = 100;
+        maxHealth = 10;
         health = maxHealth;
+        xp = 100;
     }
 
     //--
@@ -34,9 +36,17 @@ public class TestEnemy extends Enemy implements Serializable{
     public void startActions (Player player) {
         this.player = player;
 
-        while (health > 0) {
+        while (health > 0 && player.getHealth() > 0) {
 
-            action1(player);
+            normalAttack(player);
+            normalAttack(player);
+            fastAttack(player);
+            fastAttack(player);
+            normalAttack(player);
+            fastAttack(player);
+            fastAttack(player);
+            fastAttack(player);
+            normalAttack(player);
         }
     }
 
@@ -57,29 +67,61 @@ public class TestEnemy extends Enemy implements Serializable{
     }
 
     //actions
-    private void action1 (Player player) {
-        int duration = 5;
+    private void normalAttack (Player player) {
+        int duration = 4;
         long startTime;
         long endTime;
 
         for (int i=duration; i>=0; i--) {
             startTime = System.nanoTime();
+            if (health <= 0) {
+                break;
+            }
             //--
 
             enemyActionLabel.setText(Integer.toString(i));
-
             if (i == 0) {
                 attack(10);
-            }
-            if (health <= 0) {
-                break;
             }
 
             //--
             endTime = System.nanoTime();
+            // wait 1 second
             try {
                 Thread.sleep((1000000000 - (endTime-startTime)) / 1000000);
             } catch (Exception e) { }
+        }
+    }
+
+    private void fastAttack (Player player) {
+        int durationDs = 10;
+        long startTime;
+        long endTime;
+
+        for (int i=durationDs; i>=0; i--) {
+            startTime = System.nanoTime();
+            if (health <= 0) {
+                break;
+            }
+            //--
+
+            enemyActionLabel.setText("" + ((float) i/10));
+            if (i == 0) {
+                attack(10);
+            }
+
+            //--
+            endTime = System.nanoTime();
+            if (i != 0) {
+                //wait 0.1 seconds
+                try {
+                    Thread.sleep((1000000000 - (endTime-startTime)) / 10000000);
+                } catch (Exception e) { }
+            } else {
+                try {
+                    Thread.sleep(499);
+                } catch (Exception e) { }
+            }
         }
     }
 
@@ -92,6 +134,9 @@ public class TestEnemy extends Enemy implements Serializable{
     }
     public int getHealth () {
         return health;
+    }
+    public int getXp () {
+        return xp;
     }
     public boolean getIsDefending () {
         return isDefending;

@@ -160,6 +160,8 @@ public class FightPanel extends JPanel{
 
     }
 
+    
+
     //gets
     public Player getPlayer () {
         return player;
