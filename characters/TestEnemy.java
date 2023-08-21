@@ -74,7 +74,7 @@ public class TestEnemy extends Enemy implements Serializable{
 
         for (int i=duration; i>=0; i--) {
             startTime = System.nanoTime();
-            if (health <= 0) {
+            if (health <= 0 || player.getHealth() <= 0) {
                 break;
             }
             //--
@@ -100,7 +100,7 @@ public class TestEnemy extends Enemy implements Serializable{
 
         for (int i=durationDs; i>=0; i--) {
             startTime = System.nanoTime();
-            if (health <= 0) {
+            if (health <= 0 || player.getHealth() <= 0) {
                 break;
             }
             //--

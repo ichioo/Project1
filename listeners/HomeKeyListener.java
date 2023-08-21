@@ -83,6 +83,7 @@ public class HomeKeyListener implements KeyListener, Serializable{
 
             if(onEnterFight) {
                 Player player = mainFrame.getPlayer();
+                player.resetHealth();
                 TestEnemy testEnemy = new TestEnemy();
 
                 mainFrame.changeToFight();

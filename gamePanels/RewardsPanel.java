@@ -16,14 +16,28 @@ public class RewardsPanel extends JPanel {
     private JLabel graySquare;
     private JLabel xpGained;
     private JLabel enterKey;
+    private JLabel youDied;
+
+    private Font gameFont;
 
     public RewardsPanel (Font gameFont, Enemy enemy) {
         this.enemy = enemy;
+        this.gameFont = gameFont;
 
         setLayout(null);
         setPreferredSize(new Dimension(600,600));
         setBackground(Color.BLACK);
 
+        enterKey = new JLabel("press [enter] to continue");
+        enterKey.setForeground(Color.white);
+        enterKey.setHorizontalAlignment(JLabel.CENTER);
+        enterKey.setBounds(100, 500, 400, 50);
+        enterKey.setFont(gameFont.deriveFont(20f));
+
+        add(enterKey);
+    }
+
+    public void playerWon () {
         //components
         youKilled = new JLabel("you killed");
         youKilled.setFont(gameFont.deriveFont(65f));
@@ -48,25 +62,29 @@ public class RewardsPanel extends JPanel {
         xpGained.setBounds(150, 260, 300, 50);
         xpGained.setForeground(Color.white);
 
-        enterKey = new JLabel("press [enter] to continue");
-        enterKey.setForeground(Color.white);
-        enterKey.setHorizontalAlignment(JLabel.CENTER);
-        enterKey.setBounds(100, 500, 400, 50);
-        enterKey.setFont(gameFont.deriveFont(20f));
-
         //add comps
         add(youKilled);
         add(enemyName);
         add(graySquare);
         add(xpGained);
-        add(enterKey);
 
         updateEnemyName();
-
     }
 
     private void updateEnemyName () {
         enemyName.setText(enemy.getName());
         xpGained.setText("+ " + enemy.getXp() + " xp");
+    }
+
+    public void playerDied () {
+        //components
+        youDied = new JLabel("you died");
+        youDied.setFont(gameFont.deriveFont(70f));
+        youDied.setForeground(Color.white);
+        youDied.setHorizontalAlignment(JLabel.CENTER);
+        youDied.setBounds(50, 50, 500, 450);
+
+        //add comps
+        add(youDied);
     }
 }

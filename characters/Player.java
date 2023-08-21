@@ -152,9 +152,16 @@ public class Player implements Serializable {
         }
 
     }
+
+    public void resetHealth () {
+        health = maxHealth;
+    }
+
     private void levelUp () {
         level += 1;
         points += 1;
+
+        xpToNextLvl = level * 100 + (level * 45);
     }
 
     //gets

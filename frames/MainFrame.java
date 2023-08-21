@@ -278,6 +278,9 @@ public class MainFrame extends JFrame {
     public SpendPointsPanel getSpendPointsPanel () {
         return spendPointsPanel;
     }
+    public RewardsPanel getRewardsPanel () {
+        return rewardsPanel;
+    }
     // --
     public GameSaverLoader getGameSaverLoader () {
         return gameSaverLoader;

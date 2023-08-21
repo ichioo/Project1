@@ -50,7 +50,7 @@ public class FightKeyListener implements KeyListener, Serializable {
             player.dodge();
         }
 
-        if (enter && enemy.getHealth() <= 0) {
+        if (enter && enemy.getHealth() <= 0 || player.getHealth() <= 0) {
             System.out.println("FightKeyListener: enter");
             mainFrame.changeToHome();
         }

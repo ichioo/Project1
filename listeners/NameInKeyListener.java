@@ -6,6 +6,7 @@ import javax.swing.*;
 import characters.Player;
 import frames.*;
 import skills.Punch;
+import skills.Skill;
 
 public class NameInKeyListener implements KeyListener {
 
@@ -52,7 +53,9 @@ public class NameInKeyListener implements KeyListener {
             player.setMainFrame(mainFrame);
 
             //skill adding (temp)
-            player.addSkill(new Punch());
+            Skill punch = new Punch();
+            player.addSkill(punch);
+            player.equipSkill(punch);
 
             mainFrame.setPlayer(player);
             mainFrame.changeToHome();

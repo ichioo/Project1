@@ -2,6 +2,7 @@ package gameThreads;
 
 import java.io.Serializable;
 import characters.Enemy;
+import characters.Player;
 import frames.MainFrame;
 import gamePanels.FightPanel;
 
@@ -9,12 +10,14 @@ public class FightThread extends Thread implements Serializable{
 
     private FightPanel fightPanel;
     private MainFrame mainFrame;
+    private Player player;
     private Enemy enemy;
 
     @Override
     public void run () {
         Thread.currentThread().setName("FightThread");
         enemy = fightPanel.getEnemy();
+        player = fightPanel.getPlayer();
         
         fight();
     }
@@ -39,8 +42,16 @@ public class FightThread extends Thread implements Serializable{
             } catch (Exception e) { }
 
             mainFrame.changeToRewards();
+            mainFrame.getRewardsPanel().playerWon();
             mainFrame.getPlayer().gainXp(enemy.getXp());
+        } 
+
+        if (player.getHealth() <= 0) {
+
+            mainFrame.changeToRewards();
+            mainFrame.getRewardsPanel().playerDied();
         }
+        
     }
     
 

@@ -118,7 +118,7 @@ public class FightPanel extends JPanel{
         this.enemy = enemy;
 
         //player hp bar
-        playerHpBar.setMaximum(player.getHealth());
+        playerHpBar.setMaximum(player.getMaxHealth());
         playerHpBar.setValue(player.getHealth());
         //player
         playerNameLabel.setText(player.getName());
