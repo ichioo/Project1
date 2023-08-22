@@ -84,11 +84,21 @@ public class HomeKeyListener implements KeyListener, Serializable{
             if(onEnterFight) {
                 Player player = mainFrame.getPlayer();
                 player.resetHealth();
-                TestEnemy testEnemy = new TestEnemy();
+                Enemy enemy = new Enemy();
+
+                if (player.getMapZone() > 2) {
+                    player.setMapZone(1);
+                }
+
+                if (player.getMapZone() == 1) {
+                    enemy = new Enemy1();
+                } else if (player.getMapZone() == 2) {
+                    enemy = new Enemy2();
+                }
 
                 mainFrame.changeToFight();
-                mainFrame.getFightPanel().setCharacters(player, testEnemy);
-                mainFrame.getFightKeyListener().setCharacters(player, testEnemy);
+                mainFrame.getFightPanel().setCharacters(player, enemy);
+                mainFrame.getFightKeyListener().setCharacters(player, enemy);
 
                 System.out.println("HomeKeyListener: enter fight");
 

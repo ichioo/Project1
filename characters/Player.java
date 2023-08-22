@@ -19,6 +19,7 @@ public class Player implements Serializable {
     private int health;
 
     private int maxHpLevel = 1;
+    private int mapZone = 1;
 
     //player skills
     private Skill[] equippedSkills;
@@ -189,6 +190,9 @@ public class Player implements Serializable {
     public int getMaxHpLvl () {
         return maxHpLevel;
     }
+    public int getMapZone () {
+        return mapZone;
+    }
 
     public Skill[] getEquippedSkills () {
         return equippedSkills;
@@ -218,6 +222,9 @@ public class Player implements Serializable {
     //sets
     public void setMainFrame (MainFrame mainFrame) {
         this.mainFrame = mainFrame;
+    }
+    public void setMapZone (int mapZone) {
+        this.mapZone = mapZone;
     }
     // -- actions
     public void setIsBlocking (boolean isBlocking) {

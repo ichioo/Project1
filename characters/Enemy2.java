@@ -5,9 +5,9 @@ import java.io.Serializable;
 import javax.swing.JLabel;
 import skills.Skill;
 
-public class TestEnemy extends Enemy implements Serializable{
+public class Enemy2 extends Enemy implements Serializable{
     //enemy stats
-    private String name = "test enemy";
+    private String name = "enemy2";
     private int maxHealth;
     private int health;
     private int xp;
@@ -18,14 +18,16 @@ public class TestEnemy extends Enemy implements Serializable{
     private boolean isWaiting = false;
 
     private Player player;
-     
+
     //--
     private JLabel enemyActionLabel;
 
-    public TestEnemy () {
-        maxHealth = 10;
+    private Skill rewardSkill = null;
+
+    public Enemy2 () {
+        maxHealth = 100;
         health = maxHealth;
-        xp = 100;
+        xp = 150;
     }
 
     //--
@@ -146,6 +148,9 @@ public class TestEnemy extends Enemy implements Serializable{
     }
     public boolean getIsWaiting () {
         return isWaiting;
+    }
+    public Skill getRewardSkill () {
+        return rewardSkill;
     }
     //sets
     public void setIsDefending (boolean isDefending) {

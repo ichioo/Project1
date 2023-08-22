@@ -18,7 +18,7 @@ public class Enemy {
     //--
     private JLabel enemyActionLabel;
     
-
+    private Skill rewardSkill;
     //--
     public void getHit (Skill attack) { }
     
@@ -49,6 +49,9 @@ public class Enemy {
     }
     public JLabel getEnemyActionLabel () {
         return enemyActionLabel;
+    }
+    public Skill getRewardSkill () {
+        return rewardSkill;
     }
     //sets
     public void setIsDefending (boolean isDefending) {

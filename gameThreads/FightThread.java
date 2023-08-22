@@ -44,6 +44,16 @@ public class FightThread extends Thread implements Serializable{
             mainFrame.changeToRewards();
             mainFrame.getRewardsPanel().playerWon();
             mainFrame.getPlayer().gainXp(enemy.getXp());
+
+            player.setMapZone(player.getMapZone() + 1);
+
+            if (enemy.getRewardSkill() != null) {
+                mainFrame.getRewardsPanel().showReward();
+                player.addSkill(mainFrame.getRewardsPanel().getReward());
+            }
+
+            mainFrame.validate();
+            mainFrame.repaint();
         } 
 
         if (player.getHealth() <= 0) {

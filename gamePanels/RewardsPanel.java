@@ -5,6 +5,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import characters.Enemy;
+import skills.Skill;
+
 import java.awt.*;
 
 public class RewardsPanel extends JPanel {
@@ -17,6 +19,7 @@ public class RewardsPanel extends JPanel {
     private JLabel xpGained;
     private JLabel enterKey;
     private JLabel youDied;
+    private JLabel rewardSkill;
 
     private Font gameFont;
 
@@ -70,10 +73,27 @@ public class RewardsPanel extends JPanel {
 
         updateEnemyName();
     }
-
+    
     private void updateEnemyName () {
         enemyName.setText(enemy.getName());
         xpGained.setText("+ " + enemy.getXp() + " xp");
+    }
+
+    public void showReward () {
+
+        System.out.println("here");
+        rewardSkill = new JLabel("new skill: " + enemy.getRewardSkill());
+        rewardSkill.setBorder(BorderFactory.createLineBorder(Color.darkGray, 3));
+        rewardSkill.setFont(gameFont);
+        rewardSkill.setHorizontalAlignment(JLabel.CENTER);
+        rewardSkill.setBounds(150, 320, 300, 50);
+        rewardSkill.setForeground(Color.white);
+
+        add(rewardSkill);
+    }
+
+    public Skill getReward () {
+        return enemy.getRewardSkill();
     }
 
     public void playerDied () {
